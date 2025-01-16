@@ -1,8 +1,9 @@
 #pragma once
+#include "Core.h"
 
 namespace Nova
 {
-	class Application
+	class NOVA_API Application
 	{
 	public:
 		Application();

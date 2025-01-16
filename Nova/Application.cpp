@@ -13,6 +13,10 @@ namespace Nova
 	}
 	void Application::Run()
 	{
-		std::cout << "Welcome To Nova" << std::endl;
+		while (true)
+		{
+			std::cout << "Welcome To Nova" << std::endl;
+		}
+		
 	}
 }

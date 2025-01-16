@@ -21,6 +21,10 @@
     <ClCompile Include="Application.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="NovaPch.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CoutTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nova.h" />
@@ -30,10 +34,11 @@
     <ClInclude Include="Application.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="NovaPch.h">
+    <ClInclude Include="Core.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
+    <ClInclude Include="CoutTest.h" />
+    <ClInclude Include="NovaPch.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
   </ItemGroup>

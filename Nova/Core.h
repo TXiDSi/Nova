@@ -2,8 +2,7 @@
 
 #ifdef IS_NOVA_BUILD
 	#define NOVA_API __declspec(dllexport)
-	#else
+#else
 	#define NOVA_API __declspec(dllimport)
-#endif
+#endif  
 
-#include "Application.h"
