@@ -12,11 +12,6 @@ namespace Nova
 		std::cout << "Application Destructor" << std::endl;
 	}
 	void Application::Run()
-	{
-		while (true)
-		{
-			std::cout << "Welcome To Nova" << std::endl;
-		}
-		
+	{	
 	}
 }
