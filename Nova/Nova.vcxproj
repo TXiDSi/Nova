@@ -73,7 +73,8 @@
       <ImportLibrary>..\bin\Debug-windows-x86_64\Nova\Nova.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.dll..\bin\Debug-windows-x86_64\NovaEditor\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Nova\Nova.dll..\bin\Debug-windows-x86_64\NovaEditor &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Nova\Nova.dll..\bin\Debug-windows-x86_64\NovaEditor &gt; nul)</Command>
+      <Command>IF NOT EXIST ..\bin\Debug-windows-x86_64\NovaEditor (mkdir ..\bin\Debug-windows-x86_64\NovaEditor)
+IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Nova\Nova.dll ..\bin\Debug-windows-x86_64\NovaEditor &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Nova\Nova.dll ..\bin\Debug-windows-x86_64\NovaEditor &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -99,7 +100,8 @@
       <ImportLibrary>..\bin\Release-windows-x86_64\Nova\Nova.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll..\bin\Release-windows-x86_64\NovaEditor\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Nova\Nova.dll..\bin\Release-windows-x86_64\NovaEditor &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Nova\Nova.dll..\bin\Release-windows-x86_64\NovaEditor &gt; nul)</Command>
+      <Command>IF NOT EXIST ..\bin\Release-windows-x86_64\NovaEditor (mkdir ..\bin\Release-windows-x86_64\NovaEditor)
+IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Nova\Nova.dll ..\bin\Release-windows-x86_64\NovaEditor &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Nova\Nova.dll ..\bin\Release-windows-x86_64\NovaEditor &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
