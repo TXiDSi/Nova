@@ -51,8 +51,26 @@ project "Nova"
     --设置配置头文件搜索路径
     includedirs
     {
-        "%{prj.name}/external/spdlog/include"
+        --包含spd，方便DEBUG
+        "%{prj.name}/external/spdlog/include",
+        --包含source，便利文件耦合调用
+        "%{prj.name}/source",
+        --包含GLFW
+        "%{prj.name}/external/glfw-3.4/include"
     }
+    --链接库存放位置
+    libdirs
+    {
+        --glfw库文件位置
+        "%{prj.name}/external/glfw-3.4/lib"
+    }
+    --链接库
+    links
+    {
+        --glfw库文件名称 会自动加上lib
+        "glfw3"
+    }
+    
     --project下的大部分配置都是全局的
     --filter可以让你用特定的构建配置 类似如下
     --configurations:Debug|Release
@@ -87,7 +105,9 @@ project "Nova"
    --中间空格隔开就可以了
    postbuildcommands
    {
+        --提前创建对应的文件夹避免出错
         ("{MKDIR} ../bin/"..outputdir.."/NovaEditor"),
+        --COPY对应dll到Editor执行文件处
         ("{COPY} %{cfg.buildtarget.relpath} ../bin/"..outputdir.."/NovaEditor")
    }
    --到此已经基本介绍完了大部分基础内容 剩下内容自行理解即可

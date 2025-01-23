@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_BUILD;IS_NOVA_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>external\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -70,6 +70,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>external\glfw-3.4\lib;E:\Nova\Nova\external\glfw-3.4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Debug-windows-x86_64\Nova\Nova.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
@@ -82,7 +84,7 @@ IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\De
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_BUILD;IS_NOVA_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>external\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -97,6 +99,8 @@ IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\De
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>external\glfw-3.4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Release-windows-x86_64\Nova\Nova.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
@@ -106,16 +110,22 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="source\Nova.h" />
-    <ClInclude Include="source\Nova\Application.h" />
-    <ClInclude Include="source\Nova\Core.h" />
-    <ClInclude Include="source\Nova\EntryPoint.h" />
-    <ClInclude Include="source\Nova\Log.h" />
-    <ClInclude Include="source\Nova\NovaPch.h" />
+    <ClInclude Include="source\Nova\Core\Application.h" />
+    <ClInclude Include="source\Nova\Core\Base.h" />
+    <ClInclude Include="source\Nova\Core\EntryPoint.h" />
+    <ClInclude Include="source\Nova\Core\Log.h" />
+    <ClInclude Include="source\Nova\Core\Window.h" />
+    <ClInclude Include="source\Nova\Event\Event.h" />
+    <ClInclude Include="source\Nova\Event\KeyEvent.h" />
+    <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="source\NovaPch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Nova\Application.cpp" />
-    <ClCompile Include="source\Nova\Log.cpp" />
-    <ClCompile Include="source\Nova\NovaPch.cpp" />
+    <ClCompile Include="source\Nova\Core\Application.cpp" />
+    <ClCompile Include="source\Nova\Core\Log.cpp" />
+    <ClCompile Include="source\Nova\Core\Window.cpp" />
+    <ClCompile Include="source\NovaPch.cpp" />
+    <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

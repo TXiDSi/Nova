@@ -4,34 +4,58 @@
     <Filter Include="Nova">
       <UniqueIdentifier>{D9BC897C-C5F3-8A0D-6EE0-70105AF6060F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Nova\Core">
+      <UniqueIdentifier>{D1D0A741-3D3B-5CB8-8679-0D5EF2223A0D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Nova\Event">
+      <UniqueIdentifier>{EABCC976-D674-0BC4-3F7C-E41F2B53A6B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Nova\Platform">
+      <UniqueIdentifier>{4D7DE071-B93D-5CA8-8278-A525EEF7A084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Nova\Platform\Windows">
+      <UniqueIdentifier>{872489A4-F390-449F-BC84-DCFC28B06607}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Nova.h" />
-    <ClInclude Include="source\Nova\Application.h">
-      <Filter>Nova</Filter>
+    <ClInclude Include="source\Nova\Core\Application.h">
+      <Filter>Nova\Core</Filter>
     </ClInclude>
-    <ClInclude Include="source\Nova\Core.h">
-      <Filter>Nova</Filter>
+    <ClInclude Include="source\Nova\Core\Base.h">
+      <Filter>Nova\Core</Filter>
     </ClInclude>
-    <ClInclude Include="source\Nova\EntryPoint.h">
-      <Filter>Nova</Filter>
+    <ClInclude Include="source\Nova\Core\EntryPoint.h">
+      <Filter>Nova\Core</Filter>
     </ClInclude>
-    <ClInclude Include="source\Nova\Log.h">
-      <Filter>Nova</Filter>
+    <ClInclude Include="source\Nova\Core\Log.h">
+      <Filter>Nova\Core</Filter>
     </ClInclude>
-    <ClInclude Include="source\Nova\NovaPch.h">
-      <Filter>Nova</Filter>
+    <ClInclude Include="source\Nova\Core\Window.h">
+      <Filter>Nova\Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Event\Event.h">
+      <Filter>Nova\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Event\KeyEvent.h">
+      <Filter>Nova\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h">
+      <Filter>Nova\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="source\NovaPch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Nova\Application.cpp">
-      <Filter>Nova</Filter>
+    <ClCompile Include="source\Nova\Core\Application.cpp">
+      <Filter>Nova\Core</Filter>
     </ClCompile>
-    <ClCompile Include="source\Nova\Log.cpp">
-      <Filter>Nova</Filter>
+    <ClCompile Include="source\Nova\Core\Log.cpp">
+      <Filter>Nova\Core</Filter>
     </ClCompile>
-    <ClCompile Include="source\Nova\NovaPch.cpp">
-      <Filter>Nova</Filter>
+    <ClCompile Include="source\Nova\Core\Window.cpp">
+      <Filter>Nova\Core</Filter>
     </ClCompile>
+    <ClCompile Include="source\NovaPch.cpp" />
+    <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>
