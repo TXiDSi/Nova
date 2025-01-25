@@ -63,12 +63,13 @@ project "Nova"
     {
         --glfw库文件位置
         "%{prj.name}/external/glfw-3.4/lib"
+        
     }
     --链接库
     links
     {
         --glfw库文件名称 会自动加上lib
-        "glfw3"
+        "glfw3dll"
     }
     
     --project下的大部分配置都是全局的
@@ -139,12 +140,18 @@ project "NovaEditor"
             "Nova/external/spdlog/include",
             "Nova/source"
         }
+        
+        libdirs
+        {
+            "Nova/external/glfw-3.4/lib"
+        }
    filter "action:vs*"
       buildoptions { "/utf-8" }  -- 设置 UTF-8 编码
         
         links
         {
-            "Nova"
+            "Nova",
+            "glfw3dll"
         }
         
         filter "system:windows"

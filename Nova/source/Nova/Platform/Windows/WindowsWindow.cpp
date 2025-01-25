@@ -2,6 +2,7 @@
 #include "WindowsWindow.h"
 #include <Nova/Core/Log.h>
 #include <Nova/Event/KeyEvent.h>
+#include <Nova/Event/WindowEvent.h>
 namespace Nova
 {
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -59,6 +60,12 @@ namespace Nova
 					
 				}
 
+			});
+
+		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) {
+			auto data = *(WindowData*)glfwGetWindowUserPointer(window);
+			OnWindowCloseEvent event;
+			data.callback(event);
 			});
 
 	}

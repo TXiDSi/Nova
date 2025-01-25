@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "Nova/Core/Window.h"
 #include "Nova/Event/KeyEvent.h"
+#include "Nova/Event/WindowEvent.h"
 #include <functional>
 
 namespace Nova
@@ -20,9 +21,13 @@ namespace Nova
 	}
 	void Application::Run()
 	{	
-		while (true)
+		while (m_isRunning)
 		{
 			m_Window->OnUpdate();
+			for (auto it = m_LayerQueue.begin(); it != m_LayerQueue.end(); it++)
+			{
+				(*it)->OnUpdate();
+			}
 		}
 	}
 
@@ -43,7 +48,32 @@ namespace Nova
 		EventDispatcher dispatcher(event);
 		
 		dispatcher.Dispatch<OnKeyDownEvent>(OnKeyDownTest);
+		dispatcher.Dispatch<OnWindowCloseEvent>(BIND_EVENT_FUNC(OnWindowClose));
 
+		for(auto it = m_LayerQueue.begin();it!=m_LayerQueue.end();it++)
+		{
+			(*it)->OnEvent(event);
+			if(event.isHandled)
+				break;
+		} 
+
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerQueue.PushLayer(layer);
+	}
+
+	void Application::PopLayer(Layer* layer)
+	{
+		m_LayerQueue.PopLayer(layer);
+	}
+
+	bool Application::OnWindowClose(Event& event)
+	{
+		NOVA_INFO("Window Close Event");
+		m_isRunning = false;
+		return false;
 	}
 
 
