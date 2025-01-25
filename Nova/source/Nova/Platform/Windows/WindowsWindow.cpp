@@ -10,6 +10,14 @@ namespace Nova
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
 		this->Init(props);
+		
+	}
+
+	void WindowsWindow::OnUpdate()
+	{
+		glfwSwapBuffers(m_window);
+		glfwPollEvents();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void WindowsWindow::Init(const WindowProps &props) 
@@ -37,8 +45,13 @@ namespace Nova
 
 		//TODO tianxin：创建上下文测试GLAD，但目前GLAD在这初始化不一定正确，如果未来有问题再调整
 		glfwMakeContextCurrent(m_window);
-		success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
+		success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		if(success)
+		NOVA_CORE_INFO("GLAD INIT SUCCESS");
+
+		glClearColor(1, 0, 1, 1);
+		glViewport(0, 0, props.width, props.height);
 		glfwSetWindowUserPointer(m_window, &m_data);
 
 		glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods)

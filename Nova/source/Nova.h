@@ -4,6 +4,9 @@
 #include "Nova/Core/Log.h"
 #include "Nova/Core/Application.h"
 
+//Layer
+#include "Nova/Imgui/ImguiLayer.h"
+
 
 //EntryPoint 
 #include "Nova/Core/EntryPoint.h"

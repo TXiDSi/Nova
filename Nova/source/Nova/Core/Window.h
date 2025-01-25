@@ -8,7 +8,7 @@ namespace Nova
 	*/
 	struct WindowProps
 	{
-		char* title = "default";
+		char* title = "Nova";
 		unsigned int width = 1920;
 		unsigned int height = 1080; 
 	};
@@ -22,6 +22,8 @@ namespace Nova
 		virtual ~Window() = default;
 
 		virtual void OnUpdate()=0;
+		virtual unsigned int GetWidth() const = 0;
+		virtual unsigned int GetHeight() const = 0;
 
 		virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
 		static Window* Create(const WindowProps &props = WindowProps());

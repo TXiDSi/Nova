@@ -18,8 +18,9 @@ class NovaEditor :public Nova::Application
 public:
 	NovaEditor()
 	{
-		TestLayer* test = new TestLayer("Test");
-		PushLayer(test);
+		//TestLayer* test = new TestLayer("Test");
+		//PushLayer(test);
+		PushLayer(new Nova::ImguiLayer());
 	}
 
 	~NovaEditor()

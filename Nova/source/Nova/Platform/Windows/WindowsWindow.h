@@ -16,9 +16,16 @@ namespace Nova
 			this->m_data.callback = callback;
 		}
 
-		void OnUpdate() override
+		void OnUpdate() override;
+
+
+		unsigned int GetWidth() const override
 		{
-			glfwPollEvents();
+			return m_data.width;
+		}
+		unsigned int GetHeight() const override
+		{
+			return m_data.height;
 		}
 
 	private:

@@ -10,8 +10,14 @@
     <Filter Include="Nova\Event">
       <UniqueIdentifier>{EABCC976-D674-0BC4-3F7C-E41F2B53A6B4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Nova\Imgui">
+      <UniqueIdentifier>{E3380D77-CFF0-4EC4-38F8-272024CFE9B4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Nova\Platform">
       <UniqueIdentifier>{4D7DE071-B93D-5CA8-8278-A525EEF7A084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Nova\Platform\Opengl">
+      <UniqueIdentifier>{2192FBAC-0D21-8576-B63F-9971A2AD951C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Nova\Platform\Windows">
       <UniqueIdentifier>{872489A4-F390-449F-BC84-DCFC28B06607}</UniqueIdentifier>
@@ -49,6 +55,12 @@
     <ClInclude Include="source\Nova\Event\WindowEvent.h">
       <Filter>Nova\Event</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Imgui\ImguiLayer.h">
+      <Filter>Nova\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.h">
+      <Filter>Nova\Platform\Opengl</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h">
       <Filter>Nova\Platform\Windows</Filter>
     </ClInclude>
@@ -69,6 +81,12 @@
     </ClCompile>
     <ClCompile Include="source\Nova\Core\Window.cpp">
       <Filter>Nova\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Imgui\ImguiLayer.cpp">
+      <Filter>Nova\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.cpp">
+      <Filter>Nova\Platform\Opengl</Filter>
     </ClCompile>
     <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp">
       <Filter>Nova\Platform\Windows</Filter>

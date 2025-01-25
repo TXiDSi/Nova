@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_BUILD;IS_NOVA_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\glad\include;external\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -84,7 +84,7 @@ IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\De
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_BUILD;IS_NOVA_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\glad\include;external\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -120,6 +120,8 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\Nova\Event\Event.h" />
     <ClInclude Include="source\Nova\Event\KeyEvent.h" />
     <ClInclude Include="source\Nova\Event\WindowEvent.h" />
+    <ClInclude Include="source\Nova\Imgui\ImguiLayer.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.h" />
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="source\NovaPch.h" />
   </ItemGroup>
@@ -129,12 +131,17 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\
     <ClCompile Include="source\Nova\Core\LayerQueue.cpp" />
     <ClCompile Include="source\Nova\Core\Log.cpp" />
     <ClCompile Include="source\Nova\Core\Window.cpp" />
+    <ClCompile Include="source\Nova\Imgui\ImguiLayer.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.cpp" />
     <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="source\NovaPch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="external\glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="external\imgui\imgui.vcxproj">
+      <Project>{0098A80F-6CAC-D0C0-352E-7420A101CDF1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

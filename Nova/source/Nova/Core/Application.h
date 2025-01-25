@@ -21,13 +21,17 @@ namespace Nova
 		void PushLayer(Layer* layer);
 		void PopLayer(Layer* layer);
 
+		Window* GetWindow() { return m_Window; }
 		bool OnWindowClose(Event& event);
+
+		static Application& Get() { return *s_Instance; }
 
 	private:
 		Window* m_Window;
 		LayerQueue m_LayerQueue;
 		bool m_isRunning = true;
 
+		static Application* s_Instance;
 
 	};
 	Application* CreateApplication();

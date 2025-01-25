@@ -31,13 +31,13 @@ namespace Nova
 
 	LayerQueue::~LayerQueue()
 	{
-		/*NOVA_INFO("LayerQueue Destructor");
+		NOVA_INFO("LayerQueue Destructor");
 		for (Layer* layer : m_Layers)
 		{
 			NOVA_INFO("LayerQueue Destructor: {0}", layer->GetName());
 			layer->OnDetach();
 			delete layer;
-		}*/
+		}
 			
 	}
 

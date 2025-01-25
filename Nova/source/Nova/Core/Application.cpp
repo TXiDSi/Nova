@@ -9,8 +9,10 @@
 
 namespace Nova
 {
+	Application* Application::s_Instance = nullptr;
 	Application::Application()
 	{
+		s_Instance = this;
 		//´´½¨´°¿Ú
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_EVENT_FUNC(OnEvent));
