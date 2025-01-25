@@ -28,6 +28,12 @@
     <ClInclude Include="source\Nova\Core\EntryPoint.h">
       <Filter>Nova\Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Core\Layer.h">
+      <Filter>Nova\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Core\LayerQueue.h">
+      <Filter>Nova\Core</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Core\Log.h">
       <Filter>Nova\Core</Filter>
     </ClInclude>
@@ -40,22 +46,22 @@
     <ClInclude Include="source\Nova\Event\KeyEvent.h">
       <Filter>Nova\Event</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Event\WindowEvent.h">
+      <Filter>Nova\Event</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h">
       <Filter>Nova\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\NovaPch.h" />
-    <ClInclude Include="source\Nova\Core\Layer.h">
-      <Filter>Nova\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Nova\Event\WindowEvent.h">
-      <Filter>Nova\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Nova\Core\LayerQueue.h">
-      <Filter>Nova\Core</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Nova\Core\Application.cpp">
+      <Filter>Nova\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Core\Layer.cpp">
+      <Filter>Nova\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Core\LayerQueue.cpp">
       <Filter>Nova\Core</Filter>
     </ClCompile>
     <ClCompile Include="source\Nova\Core\Log.cpp">
@@ -68,11 +74,5 @@
       <Filter>Nova\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\NovaPch.cpp" />
-    <ClCompile Include="source\Nova\Core\Layer.cpp">
-      <Filter>Nova\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Nova\Core\LayerQueue.cpp">
-      <Filter>Nova\Core</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "Nova/Event/WindowEvent.h"
 #include <functional>
 
+
 namespace Nova
 {
 	Application::Application()

@@ -1,5 +1,7 @@
 #pragma once
 #include <Nova/Core/Window.h>
+
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Nova

@@ -27,6 +27,7 @@ workspace "Nova"
 --定义输出路径
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+include "Nova/external/glad"
 
 --创建工程
 project "Nova"
@@ -56,7 +57,9 @@ project "Nova"
         --包含source，便利文件耦合调用
         "%{prj.name}/source",
         --包含GLFW
-        "%{prj.name}/external/glfw-3.4/include"
+        "%{prj.name}/external/glfw-3.4/include",
+        --包含glad
+        "%{prj.name}/external/glad/include"
     }
     --链接库存放位置
     libdirs
@@ -69,7 +72,8 @@ project "Nova"
     links
     {
         --glfw库文件名称 会自动加上lib
-        "glfw3dll"
+        "glfw3dll",
+        "glad"
     }
     
     --project下的大部分配置都是全局的
@@ -95,7 +99,12 @@ project "Nova"
    --末尾的* 表示任意vs版本 
    filter "action:vs*"
       --构建编译选项 本质上就是命令行
-      buildoptions { "/utf-8" }  -- 设置 UTF-8 编码
+      buildoptions { 
+      -- 设置 UTF-8 编码
+      "/utf-8",
+      -- 设置运行库为 MD
+      "/MD"
+       }  
    
    --构建后处理命令 这里是拷贝 常见的有 
    --{COPY} 源路径 目标路径
@@ -146,7 +155,12 @@ project "NovaEditor"
             "Nova/external/glfw-3.4/lib"
         }
    filter "action:vs*"
-      buildoptions { "/utf-8" }  -- 设置 UTF-8 编码
+        buildoptions { 
+            -- 设置 UTF-8 编码
+            "/utf-8",
+            -- 设置运行库为 MD
+            "/MD"
+             }
         
         links
         {

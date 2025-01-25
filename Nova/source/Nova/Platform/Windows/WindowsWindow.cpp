@@ -3,6 +3,8 @@
 #include <Nova/Core/Log.h>
 #include <Nova/Event/KeyEvent.h>
 #include <Nova/Event/WindowEvent.h>
+
+
 namespace Nova
 {
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -32,6 +34,10 @@ namespace Nova
 			NOVA_CORE_ERROR("GLFW CREATE WINDOW FAILED");
 			return;
 		}
+
+		//TODO tianxin：创建上下文测试GLAD，但目前GLAD在这初始化不一定正确，如果未来有问题再调整
+		glfwMakeContextCurrent(m_window);
+		success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
 		glfwSetWindowUserPointer(m_window, &m_data);
 
