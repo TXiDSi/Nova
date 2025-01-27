@@ -10,7 +10,7 @@ namespace Nova
 		//WindowEvent
 		OnWindowClose, OnWindowResize,
 		//MouseEvent
-		OnMouseMove, OnMouseButtonDown, OnMouseButtonUp,
+		OnMouseMove, OnMouseButtonDown, OnMouseButtonUp,OnMouseScroll,
 		//KeyEvent
 		OnKeyDown, OnKeyUp, OnKeyRepeat,
 		//AppEvent

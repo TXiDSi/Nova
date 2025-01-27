@@ -2,6 +2,7 @@
 // It is for user to include Engine
 // Dont include it in Engine !!!
 #include "Nova/Core/Log.h"
+#include "Nova/Core/Input.h"
 #include "Nova/Core/Application.h"
 
 //Layer

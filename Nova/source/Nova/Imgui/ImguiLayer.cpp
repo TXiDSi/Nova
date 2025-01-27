@@ -1,3 +1,4 @@
+#include <Nova/Core/Base.h>
 #include "ImguiLayer.h"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -5,6 +6,8 @@
 #include "Nova/Platform/Opengl/imgui_impl_opengl3.h"
 #include <Nova/Core/Application.h>
 #include "Nova/Core/Log.h"
+
+
 namespace Nova
 {
 	ImguiLayer::ImguiLayer(): Layer("ImguiLayer")
@@ -20,8 +23,30 @@ namespace Nova
 		ImGui::StyleColorsDark();
 
 		ImGuiIO &io = ImGui::GetIO();
-		//io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		//io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+
+		io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
+		io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
+		io.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
+		io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
+		io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
+		io.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
+		io.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
+		io.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
+		io.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
+		io.KeyMap[ImGuiKey_Insert] = GLFW_KEY_INSERT;
+		io.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
+		io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
+		io.KeyMap[ImGuiKey_Space] = GLFW_KEY_SPACE;
+		io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
+		io.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
+		io.KeyMap[ImGuiKey_A] = GLFW_KEY_A;
+		io.KeyMap[ImGuiKey_C] = GLFW_KEY_C;
+		io.KeyMap[ImGuiKey_V] = GLFW_KEY_V;
+		io.KeyMap[ImGuiKey_X] = GLFW_KEY_X;
+		io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
+		io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
 
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
@@ -45,11 +70,64 @@ namespace Nova
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-		glViewport(0, 0, app.GetWindow()->GetWidth(), app.GetWindow()->GetHeight());
+		//glViewport(0, 0, app.GetWindow()->GetWidth(), app.GetWindow()->GetHeight());
 
 
 	}
 	void ImguiLayer::OnEvent(Event& event)
 	{
+		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<MouseButtonDownEvent>(BIND_EVENT_FUNC(ImguiLayer::OnMouseButtonDownEvent));
+		dispatcher.Dispatch<MouseButtonUpEvent>(BIND_EVENT_FUNC(ImguiLayer::OnMouseButtonUpEvent));
+		dispatcher.Dispatch<MouseMoveEvent>(BIND_EVENT_FUNC(ImguiLayer::OnMouseMovedEvent));
+		dispatcher.Dispatch<MouseScrollEvent>(BIND_EVENT_FUNC(ImguiLayer::OnMouseScrolledEvent));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FUNC(ImguiLayer::OnWindowResizeEvent));
 	}
+
+	bool ImguiLayer::OnMouseButtonDownEvent(MouseButtonDownEvent& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		
+		io.MouseDown[e.GetMouseButton()] = true;
+
+		NOVA_INFO("OnMouseButtonDownEvent Key:{0}",e.GetMouseButton());
+
+		return false;
+	}
+
+	bool ImguiLayer::OnMouseButtonUpEvent(MouseButtonUpEvent& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MouseDown[e.GetMouseButton()] = false;
+
+		NOVA_INFO("OnMouseButtonUpEvent Key:{0}", e.GetMouseButton());
+
+		return false;
+	}
+
+	bool ImguiLayer::OnMouseMovedEvent(MouseMoveEvent& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MousePos = ImVec2(e.GetX(), e.GetY());
+
+		return false;
+	}
+
+	bool ImguiLayer::OnMouseScrolledEvent(MouseScrollEvent& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MouseWheel += e.GetY();
+		io.MouseWheelH += e.GetX();
+		return false;
+	}
+
+	bool ImguiLayer::OnWindowResizeEvent(WindowResizeEvent& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
+		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+
+		return false;
+	}
+
 }

@@ -9,6 +9,10 @@ public:
 	}
 	void OnUpdate()override
 	{
+		if (Nova::Input::IsKey(32))
+		{
+			NOVA_INFO("Click Space");
+		}
 	}
 
 };
@@ -18,8 +22,8 @@ class NovaEditor :public Nova::Application
 public:
 	NovaEditor()
 	{
-		//TestLayer* test = new TestLayer("Test");
-		//PushLayer(test);
+		TestLayer* test = new TestLayer("Test");
+		PushLayer(test);
 		PushLayer(new Nova::ImguiLayer());
 	}
 

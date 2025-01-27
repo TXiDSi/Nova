@@ -25,6 +25,8 @@ namespace Nova
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
 
+		virtual void* GetNativeWindow() const = 0;
+
 		virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
 		static Window* Create(const WindowProps &props = WindowProps());
 

@@ -1,5 +1,6 @@
 #include "NovaPch.h"
 #include "Nova/Core/Log.h"
+#include "Nova/Core/Input.h"
 #include "Application.h"
 #include "Nova/Core/Window.h"
 #include "Nova/Event/KeyEvent.h"
@@ -27,6 +28,8 @@ namespace Nova
 		while (m_isRunning)
 		{
 			m_Window->OnUpdate();
+
+
 			for (auto it = m_LayerQueue.begin(); it != m_LayerQueue.end(); it++)
 			{
 				(*it)->OnUpdate();
@@ -51,7 +54,7 @@ namespace Nova
 		EventDispatcher dispatcher(event);
 		
 		dispatcher.Dispatch<OnKeyDownEvent>(OnKeyDownTest);
-		dispatcher.Dispatch<OnWindowCloseEvent>(BIND_EVENT_FUNC(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FUNC(OnWindowClose));
 
 		for(auto it = m_LayerQueue.begin();it!=m_LayerQueue.end();it++)
 		{

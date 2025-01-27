@@ -52,6 +52,9 @@
     <ClInclude Include="source\Nova\Event\KeyEvent.h">
       <Filter>Nova\Event</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Event\MouseEvent.h">
+      <Filter>Nova\Event</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Event\WindowEvent.h">
       <Filter>Nova\Event</Filter>
     </ClInclude>
@@ -65,6 +68,8 @@
       <Filter>Nova\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\NovaPch.h" />
+    <ClInclude Include="source\Nova\Core\Input.h" />
+    <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Nova\Core\Application.cpp">
@@ -92,5 +97,6 @@
       <Filter>Nova\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\NovaPch.cpp" />
+    <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

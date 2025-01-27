@@ -3,6 +3,7 @@
 #include <Nova/Core/Log.h>
 #include <Nova/Event/KeyEvent.h>
 #include <Nova/Event/WindowEvent.h>
+#include <Nova/Event/MouseEvent.h>
 
 
 namespace Nova
@@ -81,9 +82,48 @@ namespace Nova
 
 			});
 
+
+		glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods) {
+			auto data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			switch (action)
+			{
+				case GLFW_PRESS :
+				{
+					MouseButtonDownEvent event(button);
+					data.callback(event);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					MouseButtonUpEvent event(button);
+					data.callback(event);
+					break;
+				}
+			}
+
+			});
+		glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xpos, double ypos) {
+			auto data = *(WindowData*)glfwGetWindowUserPointer(window);
+		MouseMoveEvent event(xpos, ypos);
+		data.callback(event);
+			});
+
 		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) {
 			auto data = *(WindowData*)glfwGetWindowUserPointer(window);
-			OnWindowCloseEvent event;
+			WindowCloseEvent event;
+			data.callback(event);
+			});
+
+		glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
+			auto data = *(WindowData*)glfwGetWindowUserPointer(window);
+		WindowResizeEvent event(width, height);
+		data.callback(event);
+			});
+
+		glfwSetScrollCallback(m_window, [](GLFWwindow* window, double xoffset, double yoffset) {
+			auto data = *(WindowData*)glfwGetWindowUserPointer(window);
+			MouseScrollEvent event(xoffset, yoffset);
 			data.callback(event);
 			});
 

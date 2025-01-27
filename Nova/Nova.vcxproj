@@ -113,17 +113,20 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\Nova\Core\Application.h" />
     <ClInclude Include="source\Nova\Core\Base.h" />
     <ClInclude Include="source\Nova\Core\EntryPoint.h" />
+    <ClInclude Include="source\Nova\Core\Input.h" />
     <ClInclude Include="source\Nova\Core\Layer.h" />
     <ClInclude Include="source\Nova\Core\LayerQueue.h" />
     <ClInclude Include="source\Nova\Core\Log.h" />
     <ClInclude Include="source\Nova\Core\Window.h" />
     <ClInclude Include="source\Nova\Event\Event.h" />
     <ClInclude Include="source\Nova\Event\KeyEvent.h" />
+    <ClInclude Include="source\Nova\Event\MouseEvent.h" />
     <ClInclude Include="source\Nova\Event\WindowEvent.h" />
     <ClInclude Include="source\Nova\Imgui\ImguiLayer.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.h" />
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="source\NovaPch.h" />
+    <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Nova\Core\Application.cpp" />
@@ -135,6 +138,7 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\
     <ClCompile Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.cpp" />
     <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="source\NovaPch.cpp" />
+    <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="external\glad\Glad.vcxproj">

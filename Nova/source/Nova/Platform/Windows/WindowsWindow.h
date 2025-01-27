@@ -17,6 +17,10 @@ namespace Nova
 		}
 
 		void OnUpdate() override;
+		void* GetNativeWindow() const override
+		{
+			return m_window;
+		}
 
 
 		unsigned int GetWidth() const override
