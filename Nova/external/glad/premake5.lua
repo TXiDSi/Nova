@@ -4,7 +4,7 @@ project "Glad"
     kind "StaticLib"
     --设置语言类型
     language "C"
-    staticruntime "off"
+    staticruntime "on"
     --设置配置输出路径
     targetdir ("bin/".. outputdir .. "/%{prj.name}")
     --设置配置中间文件输出路径

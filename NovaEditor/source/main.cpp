@@ -9,7 +9,7 @@ public:
 	}
 	void OnUpdate()override
 	{
-		if (Nova::Input::IsKey(32))
+		if (Nova::Input::IsKey(NOVA_KEY_SPACE))
 		{
 			NOVA_INFO("Click Space");
 		}

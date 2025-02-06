@@ -19,13 +19,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
@@ -41,18 +41,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
     <OutDir>..\bin\Debug-windows-x86_64\Nova\</OutDir>
     <IntDir>..\bin_int\Debug-windows-x86_64\Nova\</IntDir>
     <TargetName>Nova</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>..\bin\Release-windows-x86_64\Nova\</OutDir>
     <IntDir>..\bin_int\Release-windows-x86_64\Nova\</IntDir>
     <TargetName>Nova</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -63,20 +61,21 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\glfw-3.4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\bin\Debug-windows-x86_64\Nova\Nova.lib</ImportLibrary>
     </Link>
+    <Lib>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>external\glfw-3.4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
     <PostBuildEvent>
       <Command>IF NOT EXIST ..\bin\Debug-windows-x86_64\NovaEditor (mkdir ..\bin\Debug-windows-x86_64\NovaEditor)
-IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Nova\Nova.dll ..\bin\Debug-windows-x86_64\NovaEditor &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Nova\Nova.dll ..\bin\Debug-windows-x86_64\NovaEditor &gt; nul)</Command>
+IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Nova\Nova.lib ..\bin\Debug-windows-x86_64\NovaEditor &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Nova\Nova.lib ..\bin\Debug-windows-x86_64\NovaEditor &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -91,7 +90,7 @@ IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\De
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -99,13 +98,14 @@ IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\De
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\glfw-3.4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\bin\Release-windows-x86_64\Nova\Nova.lib</ImportLibrary>
     </Link>
+    <Lib>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>external\glfw-3.4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
     <PostBuildEvent>
       <Command>IF NOT EXIST ..\bin\Release-windows-x86_64\NovaEditor (mkdir ..\bin\Release-windows-x86_64\NovaEditor)
-IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Nova\Nova.dll ..\bin\Release-windows-x86_64\NovaEditor &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Nova\Nova.dll ..\bin\Release-windows-x86_64\NovaEditor &gt; nul)</Command>
+IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Nova\Nova.lib ..\bin\Release-windows-x86_64\NovaEditor &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Nova\Nova.lib ..\bin\Release-windows-x86_64\NovaEditor &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -114,9 +114,11 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\Nova\Core\Base.h" />
     <ClInclude Include="source\Nova\Core\EntryPoint.h" />
     <ClInclude Include="source\Nova\Core\Input.h" />
+    <ClInclude Include="source\Nova\Core\KeyCode.h" />
     <ClInclude Include="source\Nova\Core\Layer.h" />
     <ClInclude Include="source\Nova\Core\LayerQueue.h" />
     <ClInclude Include="source\Nova\Core\Log.h" />
+    <ClInclude Include="source\Nova\Core\MouseButtonCode.h" />
     <ClInclude Include="source\Nova\Core\Window.h" />
     <ClInclude Include="source\Nova\Event\Event.h" />
     <ClInclude Include="source\Nova\Event\KeyEvent.h" />
@@ -124,9 +126,10 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\Nova\Event\WindowEvent.h" />
     <ClInclude Include="source\Nova\Imgui\ImguiLayer.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="source\NovaPch.h" />
-    <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Nova\Core\Application.cpp" />
@@ -136,9 +139,9 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.dll\ (xcopy /Q /E /Y /I ..\bin\
     <ClCompile Include="source\Nova\Core\Window.cpp" />
     <ClCompile Include="source\Nova\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="source\NovaPch.cpp" />
-    <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="external\glad\Glad.vcxproj">

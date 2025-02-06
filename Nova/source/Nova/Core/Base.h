@@ -1,9 +1,9 @@
 #pragma once
 
 #ifdef IS_NOVA_BUILD
-	#define NOVA_API __declspec(dllexport)
+	#define NOVA_API 
 #else
-	#define NOVA_API __declspec(dllimport)
+	#define NOVA_API 
 #endif  
 
 #define BIT(x) (1<<x)

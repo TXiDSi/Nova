@@ -34,6 +34,12 @@
     <ClInclude Include="source\Nova\Core\EntryPoint.h">
       <Filter>Nova\Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Core\Input.h">
+      <Filter>Nova\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Core\KeyCode.h">
+      <Filter>Nova\Core</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Core\Layer.h">
       <Filter>Nova\Core</Filter>
     </ClInclude>
@@ -41,6 +47,9 @@
       <Filter>Nova\Core</Filter>
     </ClInclude>
     <ClInclude Include="source\Nova\Core\Log.h">
+      <Filter>Nova\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Core\MouseButtonCode.h">
       <Filter>Nova\Core</Filter>
     </ClInclude>
     <ClInclude Include="source\Nova\Core\Window.h">
@@ -64,12 +73,14 @@
     <ClInclude Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.h">
       <Filter>Nova\Platform\Opengl</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h">
+      <Filter>Nova\Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h">
       <Filter>Nova\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\NovaPch.h" />
-    <ClInclude Include="source\Nova\Core\Input.h" />
-    <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\imgui_impl_opengl3_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Nova\Core\Application.cpp">
@@ -93,10 +104,12 @@
     <ClCompile Include="source\Nova\Platform\Opengl\imgui_impl_opengl3.cpp">
       <Filter>Nova\Platform\Opengl</Filter>
     </ClCompile>
+    <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp">
+      <Filter>Nova\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp">
       <Filter>Nova\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\NovaPch.cpp" />
-    <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

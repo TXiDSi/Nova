@@ -37,7 +37,7 @@ project "Nova"
     location "Nova"
     --构建目标的类型 SharedLib对应动态库 StaticLib对应静态库 
     --ConsoleApp对应可执行文件 WindowedApp对应窗口程序
-    kind "SharedLib"
+    kind "StaticLib"
     --设置语言类型
     language "C++"
     --设置配置输出路径
@@ -76,7 +76,7 @@ project "Nova"
     links
     {
         --glfw库文件名称 会自动加上lib
-        "glfw3dll",
+        "glfw3",
         "glad",
         "imgui"
     }
@@ -107,8 +107,6 @@ project "Nova"
       buildoptions { 
       -- 设置 UTF-8 编码
       "/utf-8",
-      -- 设置运行库为 MD
-      "/MD"
        }  
    
    --构建后处理命令 这里是拷贝 常见的有 
@@ -152,7 +150,8 @@ project "NovaEditor"
         includedirs
         {
             "Nova/external/spdlog/include",
-            "Nova/source"
+            "Nova/source",
+            "Nova/external/imgui"
         }
         
         libdirs
@@ -163,14 +162,13 @@ project "NovaEditor"
         buildoptions { 
             -- 设置 UTF-8 编码
             "/utf-8",
-            -- 设置运行库为 MD
-            "/MD"
              }
         
         links
         {
             "Nova",
-            "glfw3dll"
+            "glfw3",
+            "imgui"
         }
         
         filter "system:windows"
