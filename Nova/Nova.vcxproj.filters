@@ -80,7 +80,6 @@
       <Filter>Nova\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\NovaPch.h" />
-    <ClInclude Include="source\Nova\Platform\Opengl\imgui_impl_opengl3_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Nova\Core\Application.cpp">
