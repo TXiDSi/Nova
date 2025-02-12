@@ -109,6 +109,11 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLVertexArray.h" />
+    <ClInclude Include="source\Nova\Renderer\Shader.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLContext.h" />
+    <ClInclude Include="source\Nova\Renderer\Renderer.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLBuffer.h" />
     <ClInclude Include="source\Nova.h" />
     <ClInclude Include="source\Nova\Core\Application.h" />
     <ClInclude Include="source\Nova\Core\Base.h" />
@@ -129,8 +134,16 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="source\NovaPch.h" />
+    <ClInclude Include="source\Nova\Renderer\Buffer.h" />
+    <ClInclude Include="source\Nova\Renderer\RendererContext.h" />
+    <ClInclude Include="source\Nova\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLVertexArray.cpp" />
+    <ClCompile Include="source\Nova\Renderer\Shader.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLContext.cpp" />
+    <ClCompile Include="source\Nova\Renderer\Renderer.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLBuffer.cpp" />
     <ClCompile Include="source\Nova\Core\Application.cpp" />
     <ClCompile Include="source\Nova\Core\Layer.cpp" />
     <ClCompile Include="source\Nova\Core\LayerQueue.cpp" />
@@ -141,6 +154,8 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="source\NovaPch.cpp" />
+    <ClCompile Include="source\Nova\Renderer\Buffer.cpp" />
+    <ClCompile Include="source\Nova\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="external\glad\Glad.vcxproj">

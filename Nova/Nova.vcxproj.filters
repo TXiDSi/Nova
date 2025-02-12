@@ -80,6 +80,14 @@
       <Filter>Nova\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\NovaPch.h" />
+    <ClInclude Include="source\Nova\Renderer\Buffer.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLBuffer.h" />
+    <ClInclude Include="source\Nova\Renderer\Renderer.h" />
+    <ClInclude Include="source\Nova\Renderer\RendererContext.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLContext.h" />
+    <ClInclude Include="source\Nova\Renderer\Shader.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLVertexArray.h" />
+    <ClInclude Include="source\Nova\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Nova\Core\Application.cpp">
@@ -110,5 +118,12 @@
       <Filter>Nova\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\NovaPch.cpp" />
+    <ClCompile Include="source\Nova\Renderer\Buffer.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLBuffer.cpp" />
+    <ClCompile Include="source\Nova\Renderer\Renderer.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLContext.cpp" />
+    <ClCompile Include="source\Nova\Renderer\Shader.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLVertexArray.cpp" />
+    <ClCompile Include="source\Nova\Renderer\VertexArray.cpp" />
   </ItemGroup>
 </Project>

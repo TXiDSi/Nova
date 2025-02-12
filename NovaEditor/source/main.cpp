@@ -24,7 +24,6 @@ public:
 	{
 		TestLayer* test = new TestLayer("Test");
 		PushLayer(test);
-		PushLayer(new Nova::ImguiLayer());
 	}
 
 	~NovaEditor()

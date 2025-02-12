@@ -1,8 +1,11 @@
 #pragma once
+#include "Nova/Imgui/ImguiLayer.h"
 #include "Nova/Core/Base.h"
 #include "Nova/Event/Event.h"
 #include "Nova/Core/Window.h"
 #include "Nova/Core/LayerQueue.h"
+#include <Nova/Renderer/Shader.h>
+#include <Nova/Renderer/VertexArray.h>
 
 namespace Nova
 {
@@ -32,6 +35,14 @@ namespace Nova
 		bool m_isRunning = true;
 
 		static Application* s_Instance;
+
+		ImguiLayer* m_ImguiLayer;
+
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+
+		std::shared_ptr<Shader> m_BlueShader;
+		std::shared_ptr<VertexArray> m_SquareVA;
 
 	};
 	Application* CreateApplication();
