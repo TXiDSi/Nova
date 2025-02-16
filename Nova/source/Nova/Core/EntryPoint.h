@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Nova/Core/Application.h"
 #include "Nova/Core/Log.h"
 
 extern Nova::Application* Nova::CreateApplication();

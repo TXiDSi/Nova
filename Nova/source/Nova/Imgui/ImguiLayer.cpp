@@ -1,112 +1,98 @@
-#include <Nova/Core/Base.h>
-#include "ImguiLayer.h"
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+#include "novapch.h"
+#include "ImGuiLayer.h"
+
 #include "imgui.h"
-#include "Nova/Platform/Opengl/imgui_impl_opengl3.h"
-#include <Nova/Core/Application.h>
-#include "Nova/Core/Log.h"
+#include "examples/imgui_impl_glfw.h"
+#include "examples/imgui_impl_opengl3.h"
+
+#include "Nova/Core/Application.h"
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 
-namespace Nova
-{
-	ImguiLayer::ImguiLayer(): Layer("ImguiLayer")
+
+namespace Nova {
+
+	ImGuiLayer::ImGuiLayer()
+		: Layer("ImGuiLayer")
 	{
 	}
-	ImguiLayer::~ImguiLayer()
+
+	ImGuiLayer::~ImGuiLayer()
 	{
 	}
-	void ImguiLayer::OnAttach()
+
+	void ImGuiLayer::OnAttach()
 	{
-		NOVA_INFO("ImguiLayer::OnAttach");
+		// Setup Dear ImGui context
+		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
+
+		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
+		//ImGui::StyleColorsClassic();
 
-		ImGuiIO &io = ImGui::GetIO();
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
 
+		Application& app = Application::Get();
+		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
+		// Setup Platform/Renderer bindings
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
-	void ImguiLayer::OnUpdate()
+
+	void ImGuiLayer::OnDetach()
+	{
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+	}
+
+	void ImGuiLayer::Begin()
+	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+	}
+
+	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
-		io.DisplaySize = ImVec2(app.GetWindow()->GetWidth(),app.GetWindow()->GetHeight());
+		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
-		float time = (float)glfwGetTime();
-		io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
-		m_Time = time;
-
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui::NewFrame();
-
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-
-
+		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-		//glViewport(0, 0, app.GetWindow()->GetWidth(), app.GetWindow()->GetHeight());
-
-
-	}
-	void ImguiLayer::OnEvent(Event& event)
-	{
-		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseButtonDownEvent>(BIND_EVENT_FUNC(ImguiLayer::OnMouseButtonDownEvent));
-		dispatcher.Dispatch<MouseButtonUpEvent>(BIND_EVENT_FUNC(ImguiLayer::OnMouseButtonUpEvent));
-		dispatcher.Dispatch<MouseMoveEvent>(BIND_EVENT_FUNC(ImguiLayer::OnMouseMovedEvent));
-		dispatcher.Dispatch<MouseScrollEvent>(BIND_EVENT_FUNC(ImguiLayer::OnMouseScrolledEvent));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FUNC(ImguiLayer::OnWindowResizeEvent));
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 	}
 
-	bool ImguiLayer::OnMouseButtonDownEvent(MouseButtonDownEvent& e)
+	void ImGuiLayer::OnImGuiRender()
 	{
-		ImGuiIO& io = ImGui::GetIO();
-		
-		io.MouseDown[e.GetMouseButton()] = true;
-
-		NOVA_INFO("OnMouseButtonDownEvent Key:{0}",e.GetMouseButton());
-
-		return false;
-	}
-
-	bool ImguiLayer::OnMouseButtonUpEvent(MouseButtonUpEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.GetMouseButton()] = false;
-
-		NOVA_INFO("OnMouseButtonUpEvent Key:{0}", e.GetMouseButton());
-
-		return false;
-	}
-
-	bool ImguiLayer::OnMouseMovedEvent(MouseMoveEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MousePos = ImVec2(e.GetX(), e.GetY());
-
-		return false;
-	}
-
-	bool ImguiLayer::OnMouseScrolledEvent(MouseScrollEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseWheel += e.GetY();
-		io.MouseWheelH += e.GetX();
-		return false;
-	}
-
-	bool ImguiLayer::OnWindowResizeEvent(WindowResizeEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
-		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-
-		return false;
+		static bool show = true;
+		ImGui::ShowDemoWindow(&show);
 	}
 
 }

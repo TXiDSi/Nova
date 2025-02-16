@@ -1,14 +1,20 @@
 #pragma once
 
-#include <Nova/Core/Input.h>
-namespace Nova
-{
+#include "Nova/Core/Input.h"
+
+namespace Nova {
+
 	class WindowsInput : public Input
 	{
-		// Í¨¹ý Input ¼Ì³Ð
-		virtual bool IsKeyImpl(int keycode) override;
-		virtual bool IsMouseButtonImpl(int button) override;
+	protected:
+		virtual bool IsKeyPressedImpl(int keycode) override;
+
+		virtual bool IsMouseButtonPressedImpl(int button) override;
+		virtual std::pair<float, float> GetMousePositionImpl() override;
+		virtual float GetMouseXImpl() override;
+		virtual float GetMouseYImpl() override;
 	};
+
 }
 
 

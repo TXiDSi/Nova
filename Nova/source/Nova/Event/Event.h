@@ -14,7 +14,7 @@ namespace Nova
 		//KeyEvent
 		OnKeyDown, OnKeyUp, OnKeyRepeat,
 		//AppEvent
-		OnUpdate,
+		OnAppUpdate,OnAppTick,OnAppRender,
 	};
 
 	enum EventCatagory
@@ -37,7 +37,7 @@ namespace Nova
 	class Event
 	{
 	public:
-		bool isHandled = false;
+		bool Handled = false;
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual EventCatagory GetEventCatagoryFlags() const = 0;
@@ -71,7 +71,7 @@ virtual EventCatagory GetEventCatagoryFlags() const override{return catagory;}
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.isHandled |= func(static_cast<T&>(m_Event));
+				m_Event.Handled |= func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;

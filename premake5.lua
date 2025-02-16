@@ -28,7 +28,7 @@ workspace "Nova"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 include "Nova/external/imgui"
-include "Nova/external/glad"
+include "Nova/external/Glad"
 
 
 --创建工程
@@ -49,21 +49,24 @@ project "Nova"
     files
     {
         "%{prj.name}/source/**.h",
-        "%{prj.name}/source/**.cpp"
+        "%{prj.name}/source/**.cpp",
+        "%{prj.name}/external/stb_image/**.h",
+        "%{prj.name}/external/stb_image/**.cpp",
+        "%{prj.name}/external/glm/glm/**.hpp",
+        "%{prj.name}/external/glm/glm/**.inl",
     }
     --设置配置头文件搜索路径
     includedirs
     {
-        --包含spd，方便DEBUG
         "%{prj.name}/external/spdlog/include",
-        --包含source，便利文件耦合调用
         "%{prj.name}/source",
-        --包含GLFW
         "%{prj.name}/external/glfw-3.4/include",
-        --包含glad
-        "%{prj.name}/external/glad/include",
-        --包含imgui
-        "%{prj.name}/external/imgui"
+        "%{prj.name}/external/Glad/include",
+        "%{prj.name}/external/imgui",
+        "%{prj.name}/external/stb_image",
+        "%{prj.name}/external/glm",
+        
+        
     }
     --链接库存放位置
     libdirs
@@ -77,8 +80,8 @@ project "Nova"
     {
         --glfw库文件名称 会自动加上lib
         "glfw3",
-        "glad",
-        "imgui"
+        "Glad",
+        "ImGui"
     }
     
     --project下的大部分配置都是全局的
@@ -151,7 +154,8 @@ project "NovaEditor"
         {
             "Nova/external/spdlog/include",
             "Nova/source",
-            "Nova/external/imgui"
+            "Nova/external/imgui",
+            "Nova/external/glm",
         }
         
         libdirs
@@ -167,8 +171,6 @@ project "NovaEditor"
         links
         {
             "Nova",
-            "glfw3",
-            "imgui"
         }
         
         filter "system:windows"

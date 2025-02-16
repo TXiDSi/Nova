@@ -42,13 +42,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>bin\Debug-windows-x86_64\Glad\</OutDir>
-    <IntDir>bin_int\Debug-windows-x86_64\Glad\</IntDir>
+    <IntDir>bin-int\Debug-windows-x86_64\Glad\</IntDir>
     <TargetName>Glad</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>bin\Release-windows-x86_64\Glad\</OutDir>
-    <IntDir>bin_int\Release-windows-x86_64\Glad\</IntDir>
+    <IntDir>bin-int\Release-windows-x86_64\Glad\</IntDir>
     <TargetName>Glad</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
@@ -88,7 +88,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\KHR\khrplatform.h" />
-    <ClInclude Include="include\glad.glad.h" />
+    <ClInclude Include="include\glad\glad.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\glad.c" />

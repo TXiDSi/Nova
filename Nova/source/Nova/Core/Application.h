@@ -1,53 +1,47 @@
 #pragma once
-#include "Nova/Imgui/ImguiLayer.h"
-#include "Nova/Core/Base.h"
-#include "Nova/Event/Event.h"
-#include "Nova/Core/Window.h"
-#include "Nova/Core/LayerQueue.h"
-#include <Nova/Renderer/Shader.h>
-#include <Nova/Renderer/VertexArray.h>
 
-namespace Nova
-{
-	/*
-	* 代表应用本体的抽象
-	* 管理主循环、事件分发等主要逻辑框架
-	*/
-	class NOVA_API Application
+#include "Base.h"
+
+#include "Window.h"
+#include "Nova/Core/LayerQueue.h"
+#include "Nova/Event/Event.h"
+#include "Nova/Event/WindowEvent.h"
+
+#include "Nova/Core/Timestep.h"
+
+#include "Nova/ImGui/ImGuiLayer.h"
+
+namespace Nova {
+
+	class Application
 	{
 	public:
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
+
 		void Run();
-		void OnEvent(Event& event);
+
+		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
-		void PopLayer(Layer* layer);
+		void PushOverlay(Layer* layer);
 
-		Window* GetWindow() { return m_Window; }
-		bool OnWindowClose(Event& event);
+		inline Window& GetWindow() { return *m_Window; }
 
-		static Application& Get() { return *s_Instance; }
-
+		inline static Application& Get() { return *s_Instance; }
 	private:
-		Window* m_Window;
+		bool OnWindowClose(WindowCloseEvent& e);
+	private:
+		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
+		bool m_Running = true;
 		LayerQueue m_LayerQueue;
-		bool m_isRunning = true;
-
+		float m_LastFrameTime = 0.0f;
+	private:
 		static Application* s_Instance;
-
-		ImguiLayer* m_ImguiLayer;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
-
 	};
+
+	// To be defined in CLIENT
 	Application* CreateApplication();
 
-	
 }
-
-
