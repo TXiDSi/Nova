@@ -20,6 +20,9 @@ namespace Nova
 #define NOVA_CORE_WARN(...)		Nova::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define NOVA_CORE_ERROR(...)	Nova::Log::GetCoreLogger()->error(__VA_ARGS__)
 
+#define NOVA_ASSERT(x, ...) { if(!(x)) { NOVA_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define NOVA_CORE_ASSERT(x, ...) { if(!(x)) { NOVA_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+
 #define NOVA_TRACE(...)			Nova::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define NOVA_INFO(...)			Nova::Log::GetClientLogger()->info(__VA_ARGS__)
 #define NOVA_WARN(...)			Nova::Log::GetClientLogger()->warn(__VA_ARGS__)

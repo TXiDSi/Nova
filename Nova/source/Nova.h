@@ -15,6 +15,9 @@
 //Layer
 #include "Nova/Imgui/ImguiLayer.h"
 
+//Components
+#include "Nova/Component/Transform.h"
+
 // Renderer
 #include "Nova/Renderer/Renderer.h"
 #include "Nova/Renderer/RenderCommand.h"
@@ -24,6 +27,7 @@
 #include "Nova/Renderer/Texture.h"
 #include "Nova/Renderer/VertexArray.h"
 
+#include "Nova/Renderer/Camera.h"
 #include "Nova/Renderer/OrthographicCamera.h"
 
 //EntryPoint 

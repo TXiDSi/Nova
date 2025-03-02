@@ -65,6 +65,7 @@ project "Nova"
         "%{prj.name}/external/imgui",
         "%{prj.name}/external/stb_image",
         "%{prj.name}/external/glm",
+        "%{prj.name}/external/assimp/include",
         
         
     }
@@ -72,7 +73,8 @@ project "Nova"
     libdirs
     {
         --glfw库文件位置
-        "%{prj.name}/external/glfw-3.4/lib"
+        "%{prj.name}/external/glfw-3.4/lib",
+        "%{prj.name}/external/assimp/lib",
         
     }
     --链接库
@@ -81,7 +83,8 @@ project "Nova"
         --glfw库文件名称 会自动加上lib
         "glfw3",
         "Glad",
-        "ImGui"
+        "ImGui",
+        "assimp-vc143-mtd",
     }
     
     --project下的大部分配置都是全局的
@@ -156,6 +159,9 @@ project "NovaEditor"
             "Nova/source",
             "Nova/external/imgui",
             "Nova/external/glm",
+            "Nova/external/Glad/include",
+            "Nova/external/assimp/include",
+            "Nova/external/stb_image",
         }
         
         libdirs

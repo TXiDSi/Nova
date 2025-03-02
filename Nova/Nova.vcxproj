@@ -57,7 +57,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_BUILD;IS_NOVA_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\Glad\include;external\imgui;external\stb_image;external\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\Glad\include;external\imgui;external\stb_image;external\glm;external\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -70,8 +70,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\glfw-3.4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>external\glfw-3.4\lib;external\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>IF NOT EXIST ..\bin\Debug-windows-x86_64\NovaEditor (mkdir ..\bin\Debug-windows-x86_64\NovaEditor)
@@ -83,7 +83,7 @@ IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\De
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_BUILD;IS_NOVA_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\Glad\include;external\imgui;external\stb_image;external\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\Glad\include;external\imgui;external\stb_image;external\glm;external\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -100,8 +100,8 @@ IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\De
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\glfw-3.4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>external\glfw-3.4\lib;external\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>IF NOT EXIST ..\bin\Release-windows-x86_64\NovaEditor (mkdir ..\bin\Release-windows-x86_64\NovaEditor)
@@ -519,6 +519,7 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="external\glm\glm\vector_relational.hpp" />
     <ClInclude Include="external\stb_image\stb_image.h" />
     <ClInclude Include="source\Nova.h" />
+    <ClInclude Include="source\Nova\Component\Transform.h" />
     <ClInclude Include="source\Nova\Core\Application.h" />
     <ClInclude Include="source\Nova\Core\Base.h" />
     <ClInclude Include="source\Nova\Core\EntryPoint.h" />
@@ -544,6 +545,7 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="source\Nova\Renderer\Buffer.h" />
+    <ClInclude Include="source\Nova\Renderer\Camera.h" />
     <ClInclude Include="source\Nova\Renderer\OrthographicCamera.h" />
     <ClInclude Include="source\Nova\Renderer\RenderCommand.h" />
     <ClInclude Include="source\Nova\Renderer\Renderer.h" />
@@ -556,6 +558,7 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external\stb_image\stb_image.cpp" />
+    <ClCompile Include="source\Nova\Component\Transform.cpp" />
     <ClCompile Include="source\Nova\Core\Application.cpp" />
     <ClCompile Include="source\Nova\Core\Layer.cpp" />
     <ClCompile Include="source\Nova\Core\LayerQueue.cpp" />
@@ -572,6 +575,7 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="source\Nova\Renderer\Buffer.cpp" />
+    <ClCompile Include="source\Nova\Renderer\Camera.cpp" />
     <ClCompile Include="source\Nova\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="source\Nova\Renderer\RenderCommand.cpp" />
     <ClCompile Include="source\Nova\Renderer\Renderer.cpp" />
