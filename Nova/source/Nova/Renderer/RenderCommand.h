@@ -22,9 +22,9 @@ namespace Nova {
 			s_RendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+        inline static void DrawElements(unsigned int count)
 		{
-			s_RendererAPI->DrawIndexed(vertexArray);
+			s_RendererAPI->DrawElements(count);
 		}
 	private:
 		static RendererAPI* s_RendererAPI;

@@ -17,6 +17,12 @@
 
 //Components
 #include "Nova/Component/Transform.h"
+#include "Nova/Component/Light.h"
+
+//Graphic
+#include"Nova/Graphic/Mesh.h"
+#include"Nova/Graphic/Model.h"
+#include"Nova/Graphic/Vertex.h"
 
 // Renderer
 #include "Nova/Renderer/Renderer.h"
@@ -26,6 +32,7 @@
 #include "Nova/Renderer/Shader.h"
 #include "Nova/Renderer/Texture.h"
 #include "Nova/Renderer/VertexArray.h"
+#include "Nova/Renderer/FrameBuffer.h"
 
 #include "Nova/Renderer/Camera.h"
 #include "Nova/Renderer/OrthographicCamera.h"

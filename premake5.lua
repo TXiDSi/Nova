@@ -155,6 +155,7 @@ project "NovaEditor"
         
         includedirs
         {
+            "NovaEditor/source",
             "Nova/external/spdlog/include",
             "Nova/source",
             "Nova/external/imgui",

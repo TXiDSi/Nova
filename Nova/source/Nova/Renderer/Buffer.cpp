@@ -6,22 +6,22 @@
 
 namespace Nova {
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(const void* vertices, unsigned int size)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLVertexBuffer(vertices, size);
+		case RendererAPI::API::OpenGL:  return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 		}
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	std::shared_ptr <IndexBuffer> IndexBuffer::Create(unsigned int* indices, unsigned int size)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    return nullptr;
-		case RendererAPI::API::OpenGL:  return new OpenGLIndexBuffer(indices, size);
+		case RendererAPI::API::OpenGL:  return std::make_shared <OpenGLIndexBuffer>(indices, size);
 		}
 
 		return nullptr;

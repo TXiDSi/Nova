@@ -7,32 +7,31 @@ namespace Nova {
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(float* vertices, uint32_t size);
+		OpenGLVertexBuffer(const void* vertices, unsigned int size);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+		virtual void SetPoint(unsigned int index, int size,
+			ShaderDataType type, bool normalized, int stride, int offset) override;
 
-		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
-		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
 	private:
-		uint32_t m_RendererID;
-		BufferLayout m_Layout;
+		unsigned int m_RendererID;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
+		OpenGLIndexBuffer(unsigned int* indices, unsigned int count);
 		virtual ~OpenGLIndexBuffer();
 
 		virtual void Bind() const;
 		virtual void Unbind() const;
 
-		virtual uint32_t GetCount() const { return m_Count; }
+		virtual unsigned int GetCount() const { return m_Count; }
 	private:
-		uint32_t m_RendererID;
-		uint32_t m_Count;
+		unsigned int m_RendererID;
+		unsigned int m_Count;
 	};
 
 }

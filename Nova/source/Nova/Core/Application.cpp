@@ -42,7 +42,6 @@ namespace Nova {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-
 		for (auto it = m_LayerQueue.end(); it != m_LayerQueue.begin(); )
 		{
 			(*--it)->OnEvent(e);
@@ -58,15 +57,12 @@ namespace Nova {
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
-
 			for (Layer* layer : m_LayerQueue)
 				layer->OnUpdate(timestep);
-
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerQueue)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
-
 			m_Window->OnUpdate();
 		}
 	}

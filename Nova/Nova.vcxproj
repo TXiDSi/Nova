@@ -518,6 +518,11 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="external\glm\glm\vec4.hpp" />
     <ClInclude Include="external\glm\glm\vector_relational.hpp" />
     <ClInclude Include="external\stb_image\stb_image.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.h" />
+    <ClInclude Include="source\Nova\Renderer\FrameBuffer.h" />
+    <ClInclude Include="source\Nova\Component\Light.h" />
+    <ClInclude Include="source\Nova\Graphic\Mesh.h" />
+    <ClInclude Include="source\Nova\Graphic\Model.h" />
     <ClInclude Include="source\Nova.h" />
     <ClInclude Include="source\Nova\Component\Transform.h" />
     <ClInclude Include="source\Nova\Core\Application.h" />
@@ -535,6 +540,7 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\Nova\Event\KeyEvent.h" />
     <ClInclude Include="source\Nova\Event\MouseEvent.h" />
     <ClInclude Include="source\Nova\Event\WindowEvent.h" />
+    <ClInclude Include="source\Nova\Graphic\Vertex.h" />
     <ClInclude Include="source\Nova\Imgui\ImguiLayer.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLBuffer.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLContext.h" />
@@ -558,6 +564,10 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external\stb_image\stb_image.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.cpp" />
+    <ClCompile Include="source\Nova\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="source\Nova\Graphic\Mesh.cpp" />
+    <ClCompile Include="source\Nova\Graphic\Model.cpp" />
     <ClCompile Include="source\Nova\Component\Transform.cpp" />
     <ClCompile Include="source\Nova\Core\Application.cpp" />
     <ClCompile Include="source\Nova\Core\Layer.cpp" />

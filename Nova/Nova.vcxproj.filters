@@ -1395,6 +1395,12 @@
     <ClInclude Include="source\NovaPch.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Graphic\Model.h" />
+    <ClInclude Include="source\Nova\Graphic\Mesh.h" />
+    <ClInclude Include="source\Nova\Graphic\Vertex.h" />
+    <ClInclude Include="source\Nova\Component\Light.h" />
+    <ClInclude Include="source\Nova\Renderer\FrameBuffer.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external\stb_image\stb_image.cpp">
@@ -1478,5 +1484,9 @@
     <ClCompile Include="source\NovaPch.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\Nova\Graphic\Model.cpp" />
+    <ClCompile Include="source\Nova\Graphic\Mesh.cpp" />
+    <ClCompile Include="source\Nova\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

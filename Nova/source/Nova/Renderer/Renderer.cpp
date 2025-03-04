@@ -1,35 +1,36 @@
 #include "novapch.h"
 #include "Renderer.h"
 
+#include "Nova/Graphic/Mesh.h"
 #include "Nova/Platform/Opengl/OpenGLShader.h"
 
 namespace Nova {
 
-	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
 
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
 	}
 
-	void Renderer::BeginScene(OrthographicCamera& camera)
+
+
+	void Renderer::Submit(const std::shared_ptr<Shader> shader,Mesh& mesh,Transform& transform,Camera& camera)
 	{
-		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		mesh.Bind();
+		shader->SetMat4("view", camera.GetViewMatrix());
+		shader->SetMat4("model", transform.GetTransformMatrix());
+		shader->SetMat4("projection", camera.GetProjectionMatrix());
+		shader->Bind();
+		RenderCommand::DrawElements(mesh.indices.size());		
 	}
 
+
+
+	void Renderer::BeginScene()
+	{
+	}
 	void Renderer::EndScene()
 	{
-
-	}
-
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
-	{
-		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_Transform", transform);
-
-		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
 	}
 
 }
