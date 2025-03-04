@@ -109,6 +109,8 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLCubeMap.h" />
+    <ClInclude Include="source\Nova\Renderer\CubeMap.h" />
     <ClInclude Include="external\glm\glm\common.hpp" />
     <ClInclude Include="external\glm\glm\detail\_features.hpp" />
     <ClInclude Include="external\glm\glm\detail\_fixes.hpp" />
@@ -563,6 +565,8 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\NovaPch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLCubeMap.cpp" />
+    <ClCompile Include="source\Nova\Renderer\CubeMap.cpp" />
     <ClCompile Include="external\stb_image\stb_image.cpp" />
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.cpp" />
     <ClCompile Include="source\Nova\Renderer\FrameBuffer.cpp" />

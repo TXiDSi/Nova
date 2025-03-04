@@ -24,6 +24,7 @@ namespace Nova
         glm::vec3 GetEulerAngle() const;
         glm::vec3 GetScale() const;
 
+		glm::mat4 GetRotationMatrix();
 		glm::mat4 GetTransformMatrix() const;
 
 		glm::vec3 GetForward() const;

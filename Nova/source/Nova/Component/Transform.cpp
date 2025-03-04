@@ -35,6 +35,14 @@ namespace Nova
 	{
 		return scale;
 	}
+	glm::mat4 Transform::GetRotationMatrix()
+	{
+        glm::mat4 rotationMatrix = glm::mat4(1.0f);
+        rotationMatrix = glm::rotate(rotationMatrix, glm::radians(eulerAngle.z), glm::vec3(0.0f, 0.0f, 1.0f));
+        rotationMatrix = glm::rotate(rotationMatrix, glm::radians(eulerAngle.y), glm::vec3(0.0f, 1.0f, 0.0f));
+        rotationMatrix = glm::rotate(rotationMatrix, glm::radians(eulerAngle.x), glm::vec3(1.0f, 0.0f, 0.0f));
+        return rotationMatrix;
+	}
 	glm::mat4 Transform::GetTransformMatrix() const
 	{
 		glm::mat4 transformMatrix = glm::mat4(1.0f);  // 初始化为单位矩阵

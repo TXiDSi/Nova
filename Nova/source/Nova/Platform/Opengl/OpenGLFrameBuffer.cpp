@@ -31,7 +31,6 @@ namespace Nova
 		glBindTexture(GL_TEXTURE_2D, m_Texture);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBuffer);
 
-
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
         

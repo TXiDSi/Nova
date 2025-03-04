@@ -1401,6 +1401,8 @@
     <ClInclude Include="source\Nova\Component\Light.h" />
     <ClInclude Include="source\Nova\Renderer\FrameBuffer.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.h" />
+    <ClInclude Include="source\Nova\Renderer\CubeMap.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLCubeMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external\stb_image\stb_image.cpp">
@@ -1488,5 +1490,7 @@
     <ClCompile Include="source\Nova\Graphic\Mesh.cpp" />
     <ClCompile Include="source\Nova\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.cpp" />
+    <ClCompile Include="source\Nova\Renderer\CubeMap.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLCubeMap.cpp" />
   </ItemGroup>
 </Project>
