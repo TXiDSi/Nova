@@ -36,6 +36,7 @@ namespace Nova
         {
             //≤‚ ‘≥ı ºªØ-------
             RenderTestInit();
+            SceneInit();
             //----------------
         }
 
@@ -47,6 +48,9 @@ namespace Nova
 
             //≤‚ ‘‰÷»æ«¯º‰------
             RenderTestObject();
+            //----------------
+            //Scene≤‚ ‘«¯º‰----
+            SceneUpdate();
             //----------------
 
             Nova::Renderer::EndScene();
@@ -132,9 +136,6 @@ namespace Nova
         std::shared_ptr<VertexBuffer> skyboxVBO;
         std::shared_ptr<Shader> skyboxShader;
         std::shared_ptr<CubeMap> skyBoxTexture;
-
-
-
         std::vector<std::string> faces
         {
             "E:/Nova/Assets/Textures/CubeMap/skybox/right.jpg",
@@ -210,12 +211,11 @@ namespace Nova
                   
             frameBuffer->UnBind();
         }
-
         void TestImguiWindow()
         {
             ImGui::Begin("Rabbit");
             ImGui::DragFloat3("Position", glm::value_ptr(transform.position), 0.01f);
-            ImGui::DragFloat3("Rotation", glm::value_ptr(transform.eulerAngle), 0.01f);
+            ImGui::DragFloat3("Rotation", glm::value_ptr(transform.eulerAngle), 0.1f);
             ImGui::DragFloat3("Scale", glm::value_ptr(transform.scale), 0.01f);
             ImGui::End();
 
@@ -231,9 +231,21 @@ namespace Nova
             ImGui::End();
 
         }
-
-
         //------------------------------------------
+
+        //---------≤‚ ‘Scene----------
+        Scene scene;
+
+        void SceneInit()
+        {
+            auto gameObject = scene.CreateGameObject();
+            gameObject->AddComponent<TestComponent>();
+        }
+        void SceneUpdate()
+        {
+            scene.Update();
+        }
+        //---------------------------
     };
 
     class NovaEditor : public Nova::Application

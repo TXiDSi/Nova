@@ -15,7 +15,13 @@
 //Layer
 #include "Nova/Imgui/ImguiLayer.h"
 
+//OOP Scene GameObject Component
+#include "Nova/Core/GameObject.h"
+#include "Nova/Core/Component.h"
+#include "Nova/Core/Scene.h"
+
 //Components
+#include "Nova/Component/TestComponent.h"
 #include "Nova/Component/Transform.h"
 #include "Nova/Component/Light.h"
 

@@ -41,7 +41,6 @@ namespace Nova
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual EventCatagory GetEventCatagoryFlags() const = 0;
-
 	};
 
 	//宏定义事件类型其关乎类型函数，后续方便编写，杜绝出错

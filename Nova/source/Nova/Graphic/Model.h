@@ -12,12 +12,9 @@ namespace Nova
         std::vector<Mesh> meshes;
     private:   
         std::string directory;
-
         void loadModel(const std::string& path);     
         void processNode(aiNode* node, const aiScene* scene);
-        Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-        
-
+        Mesh processMesh(aiMesh* mesh, const aiScene* scene);   
     };
 }
 
