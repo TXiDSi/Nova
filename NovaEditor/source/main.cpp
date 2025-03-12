@@ -1,7 +1,7 @@
 #include <Nova.h>
 
 
-#include "Core/AssetsManager.h"
+#include "Core/NovaAssetsManager.h"
 
 #include "Nova/Platform/Opengl/OpenGLShader.h"
 
@@ -18,6 +18,12 @@ using namespace NovaEditor;
 #include <glad/glad.h>
 #include <vector>
 #include <stb_image.h>
+
+#include <json/json.h>
+
+#include <filesystem>
+#include <fstream>
+#include <iostream>
 //---------------------
 
 
@@ -27,7 +33,7 @@ namespace Nova
     {
     public:
         EditorLayer()
-            : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+            : Layer("Example")
         {
 
         }
@@ -37,20 +43,21 @@ namespace Nova
             //≤‚ ‘≥ı ºªØ-------
             RenderTestInit();
             SceneInit();
+            JsoncppTest();
             //----------------
         }
 
         void OnUpdate(Nova::Timestep ts) override
         {
-            Nova::Renderer::BeginScene();
+            Nova::Renderer::BeginScene(scene);
             Nova::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
             Nova::RenderCommand::Clear();
 
-            //≤‚ ‘‰÷»æ«¯º‰------
-            RenderTestObject();
-            //----------------
             //Scene≤‚ ‘«¯º‰----
+            frameBuffer->Bind();
             SceneUpdate();
+            RendererSkyBox();
+            frameBuffer->UnBind();
             //----------------
 
             Nova::Renderer::EndScene();
@@ -59,16 +66,16 @@ namespace Nova
         virtual void OnImGuiRender() override
         {
             ShowViewPortWindow();
-            TestImguiWindow();
+            HierarchyWindow();
+            InspectorWinodw();
+            SceneWindow();
+            SaveSceneWindow();
         }
 
         void OnEvent(Nova::Event& event) override
         {
 
         }
-    private:
-
-        Nova::OrthographicCamera m_Camera;
 
     private:
 
@@ -79,10 +86,41 @@ namespace Nova
 
 
         //----------------≤‚ ‘¥˙¬Î«¯------------------
-        Camera mainCamera;
-        DirectionalLight light;
+
+        //---------≤‚ ‘jsoncpp-----------------
+
+
+        void JsoncppTest()
+        {
+            std::string path = "E:/Nova/Assets/JSON";
+            std::filesystem::create_directories(path);
+            path += "/test.json";
+
+            auto file = std::ofstream(path);
+            if (file)
+            {
+                Json::Value test;
+                test["Test"] = 123;
+                file << test;
+            }
+            file.close();
+
+            Json::Value root;
+            std::ifstream file2(path);
+            Json::CharReaderBuilder builder;
+            if (!Json::parseFromStream(builder, file2, &root, nullptr))
+            {
+                std::cout << "JsoncppTest: parseFromStream failed" << std::endl;
+            }
+            std::cout << root["Test"].asInt() << std::endl;
+            
+        }
+
+        //-------------------------------------
+        std::shared_ptr<Camera> mainCamera;
+        std::shared_ptr <DirectionalLight> light;
         std::shared_ptr<Shader> shader;
-        Transform transform;
+        std::shared_ptr<Transform> transform;
 
         std::shared_ptr<Model> testModel;
         std::shared_ptr<FrameBuffer> frameBuffer;
@@ -148,15 +186,19 @@ namespace Nova
         //---------≤‚ ‘ÃÏø’∫–--------
 
         void RenderTestInit()
-        {     
-            testModel = std::make_shared<Model>("E:/Nova/Assets/Models/Stanford/bunny_10k.obj");            
-            light.color = glm::vec3(1.0f, 1.0f, 1.0f);
-            light.direction = glm::vec3(0.0f, -1.0f, 0.0f);
+        {
+            transform = std::make_shared<Transform>();
+            light = std::make_shared<DirectionalLight>();
 
-            std::string vertexSrc = AssetsManager::GetVertexShaderSource("Shaders/Nova_Standard.glsl");
-            std::string fragmentSrc = AssetsManager::GetFragmentShaderSource("Shaders/Nova_Standard.glsl");
+            light->color = glm::vec3(1.0f, 1.0f, 1.0f);
+            light->direction = glm::vec3(0.0f, -1.0f, 0.0f);
+
+            testModel = std::make_shared<Model>("E:/Nova/Assets/Models/Stanford/bunny_10k.obj");
+
+            std::string vertexSrc = NovaAssetsManager::GetVertexShaderSource("Shaders/Nova_Standard.glsl");
+            std::string fragmentSrc = NovaAssetsManager::GetFragmentShaderSource("Shaders/Nova_Standard.glsl");
             // ¥¥Ω®◊≈…´∆˜
-            shader = Shader::Create(vertexSrc, fragmentSrc);    
+            shader = Shader::Create(vertexSrc, fragmentSrc);
 
             frameBuffer = FrameBuffer::Create();
             frameBuffer->SetTextureSize(1920, 1080);
@@ -165,8 +207,8 @@ namespace Nova
             skyboxVAO = VertexArray::Create();
             skyboxVAO->Bind();
             skyboxVBO = VertexBuffer::Create(skyboxVertices, sizeof(skyboxVertices));
-            vertexSrc = AssetsManager::GetVertexShaderSource("Shaders/Nova_Skybox.glsl");
-            fragmentSrc = AssetsManager::GetFragmentShaderSource("Shaders/Nova_Skybox.glsl");
+            vertexSrc = NovaAssetsManager::GetVertexShaderSource("Shaders/Nova_Skybox.glsl");
+            fragmentSrc = NovaAssetsManager::GetFragmentShaderSource("Shaders/Nova_Skybox.glsl");
             skyboxShader = Shader::Create(vertexSrc, fragmentSrc);
             skyboxVBO->Bind();
             skyboxVBO->SetPoint(0, 3, ShaderDataType::Float, false, 3 * sizeof(float), 0);
@@ -175,75 +217,104 @@ namespace Nova
             skyBoxTexture = CubeMap::Create(faces);
             //---------≤‚ ‘ÃÏø’∫–--------
         }
-        void RenderTestObject()
-        {   
-            frameBuffer->Bind();
+        void RendererSkyBox()
+        {
+            if (scene->mainCamera == nullptr)
+                return;
 
-            for (Mesh mesh : testModel->meshes)
-            {
-                shader->Bind();
-                shader->SetFloat3("lightCol", light.color);
-                shader->SetFloat3("lightDir", light.direction);
-                shader->SetFloat3("viewPos", mainCamera.transform.position);
-                Renderer::Submit(shader, mesh, transform, mainCamera);
-            }
-
-
-            //---------≤‚ ‘ÃÏø’∫–--------
             glDepthFunc(GL_LEQUAL);
-
             skyboxVAO->Bind();
             skyboxShader->Bind();
 
             skyBoxTexture->Bind(0);
             skyboxShader->SetInt("skybox", 0);
 
-            skyboxShader->SetMat4("view", glm::mat4(glm::mat3(mainCamera.transform.GetRotationMatrix())));
-            skyboxShader->SetMat4("projection", mainCamera.GetProjectionMatrix());
+            skyboxShader->SetMat4("view", glm::mat4(glm::mat3(scene->mainCamera->gameObject->transform->GetRotationMatrix())));
+            skyboxShader->SetMat4("projection", scene->mainCamera->GetProjectionMatrix());
             glDrawArrays(GL_TRIANGLES, 0, 36);
-
             glDepthFunc(GL_LESS);
-
-            ////---------≤‚ ‘ÃÏø’∫–--------  
-
-
-
-                  
-            frameBuffer->UnBind();
         }
-        void TestImguiWindow()
+        void SceneWindow()
         {
-            ImGui::Begin("Rabbit");
-            ImGui::DragFloat3("Position", glm::value_ptr(transform.position), 0.01f);
-            ImGui::DragFloat3("Rotation", glm::value_ptr(transform.eulerAngle), 0.1f);
-            ImGui::DragFloat3("Scale", glm::value_ptr(transform.scale), 0.01f);
-            ImGui::End();
-
-            ImGui::Begin("Camera");
-            ImGui::DragFloat3("Position", glm::value_ptr(mainCamera.transform.position), 0.01f);
-            ImGui::DragFloat3("Rotation", glm::value_ptr(mainCamera.transform.eulerAngle), 0.1f);
-            ImGui::End();
-
             ImGui::Begin("Scene");
             ImVec2 size = ImGui::GetWindowSize();
             frameBuffer->SetTextureSize(size.x, size.y);
             ImGui::Image((void*)(intptr_t)frameBuffer->GetTextureID(), size, ImVec2(0, 1), ImVec2(1, 0));
             ImGui::End();
+        }
 
+        std::shared_ptr<GameObject> selectedGameObject;
+        void InspectorWinodw()
+        {
+            ImGui::Begin("Inspector");
+            if (selectedGameObject)
+                selectedGameObject->OnImGui();
+            ImGui::End();
+        }
+        void HierarchyWindow()
+        {
+            ImGui::Begin("Hierarchy");
+
+            for (auto [key,gameObject] : scene->GetGameObjects())
+            {
+                ImGui::PushID(gameObject->id);
+                bool isSelected = (selectedGameObject == gameObject);
+                if (ImGui::Selectable(gameObject->name.c_str(), isSelected))
+                {
+                    selectedGameObject = gameObject;
+                }
+                ImGui::PopID();
+            }
+
+            ImGui::End();
+
+        }
+        void SaveSceneWindow()
+        {
+            ImGui::Begin("SceneEditor");
+            if (ImGui::Button("Save"))
+            {
+                scene->SaveScene("E:/Nova/Assets/Scenes", "test");
+            }
+            if (ImGui::Button("Load"))
+            {
+                Json::Value root;
+                std::ifstream file("E:/Nova/Assets/Scenes/test.json");
+                Json::CharReaderBuilder builder;
+                if (!Json::parseFromStream(builder, file, &root, nullptr))
+                {
+                    NOVA_ERROR("Failed to parse JSON");
+                    return;
+                }
+                scene->FromJson(root);
+                scene->FindCameraFromGameObjects();
+                file.close();
+            }
+            ImGui::End();
         }
         //------------------------------------------
 
         //---------≤‚ ‘Scene----------
-        Scene scene;
+        std::shared_ptr<Scene> scene;
 
         void SceneInit()
         {
-            auto gameObject = scene.CreateGameObject();
-            gameObject->AddComponent<TestComponent>();
+            scene = std::make_shared<Scene>();
+            scene->light = light;
+            //auto cameraGO = scene->CreateGameObject();
+            //mainCamera = cameraGO->AddComponent<Camera>();
+            //cameraGO->name = "mainCamera";
+            //scene->mainCamera = mainCamera;
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    auto gameObject = scene->CreateGameObject();
+            //    auto renderer = gameObject->AddComponent<MeshRenderer>();
+            //    renderer->SetShader(shader);
+            //}
         }
         void SceneUpdate()
         {
-            scene.Update();
+            scene->Update();
         }
         //---------------------------
     };

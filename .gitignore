@@ -2,3 +2,6 @@
 .idea/
 bin_int/
 *.vcxproj.user
+bin/Debug-windows-x86_64/NovaEditor/NovaEditor.pdb
+bin/Debug-windows-x86_64/NovaEditor/NovaEditor.pdb
+*.pdb

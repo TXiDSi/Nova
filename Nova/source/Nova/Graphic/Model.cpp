@@ -17,7 +17,7 @@ namespace Nova
         const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
-            NOVA_CORE_ASSERT(false, "ERROR::ASSIMP::" + std::string(importer.GetErrorString()));
+            NOVA_CORE_ERROR("ERROR::ASSIMP::" + std::string(importer.GetErrorString()));
             return;
         }
         directory = path.substr(0, path.find_last_of('/'));
@@ -37,7 +37,7 @@ namespace Nova
         }
     }
 
-    Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+    std::shared_ptr<Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
     {
         // data to fill
         std::vector<Vertex> vertices;
@@ -84,6 +84,6 @@ namespace Nova
             for (unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
-        return Mesh(vertices, indices);
+        return std::make_shared<Mesh>(vertices, indices);
     }
 }

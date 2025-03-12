@@ -6,12 +6,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\Core\AssetsManager.h">
+    <ClInclude Include="source\Core\NovaAssetsManager.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Core\AssetsManager.cpp">
+    <ClCompile Include="source\Core\NovaAssetsManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp" />

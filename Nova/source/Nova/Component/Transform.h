@@ -1,4 +1,5 @@
 #pragma once
+#include "Nova/Core/Component.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -11,11 +12,19 @@ namespace Nova
 	* 2.Rotation -> Euler Angle|Quaternion
 	* 3.Scale
 	*/
-	class Transform
+	class Transform : public Component
 	{
+
+	public:
+		void OnImGui() override;
 	public:
         Transform();
         ~Transform();
+
+		// Í¨¹ý Component ¼Ì³Ð
+		Json::Value ToJson() override;
+		void FromJson(const Json::Value& json) override;
+
         void SetPosition(const glm::vec3& position);
 		void SetEulerAngle(const glm::vec3& eulerAngle);
 		void SetScale(const glm::vec3& scale);
@@ -34,5 +43,7 @@ namespace Nova
 		glm::vec3 position;
 		glm::vec3 scale;
 		glm::vec3 eulerAngle;
+
+
 	};
 }

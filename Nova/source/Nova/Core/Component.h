@@ -1,5 +1,6 @@
 #pragma once
 #include "memory"
+#include "json/json.h"
 namespace Nova
 {
 	class GameObject;
@@ -22,7 +23,13 @@ namespace Nova
 		virtual void OnEnable()		{ }
         virtual void OnDisable()	{ }
         virtual void OnDestroy()	{ }
+		virtual void OnImGui()      { }
 		// ---------------------
+
+		// -----序列化及反序列化-------
+		virtual Json::Value ToJson() = 0;
+		virtual void FromJson(const Json::Value& json) = 0;
+		// --------------------------
 	};
 
 

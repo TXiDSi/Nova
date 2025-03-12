@@ -57,7 +57,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_BUILD;IS_NOVA_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\Glad\include;external\imgui;external\stb_image;external\glm;external\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\Glad\include;external\imgui;external\stb_image;external\glm;external\assimp\include;external\jsoncpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -83,7 +83,7 @@ IF EXIST ..\bin\Debug-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\De
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_BUILD;IS_NOVA_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\Glad\include;external\imgui;external\stb_image;external\glm;external\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\spdlog\include;source;external\glfw-3.4\include;external\Glad\include;external\imgui;external\stb_image;external\glm;external\assimp\include;external\jsoncpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -109,12 +109,6 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="source\Nova\Component\TestComponent.h" />
-    <ClInclude Include="source\Nova\Core\Component.h" />
-    <ClInclude Include="source\Nova\Core\GameObject.h" />
-    <ClInclude Include="source\Nova\Core\Scene.h" />
-    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLCubeMap.h" />
-    <ClInclude Include="source\Nova\Renderer\CubeMap.h" />
     <ClInclude Include="external\glm\glm\common.hpp" />
     <ClInclude Include="external\glm\glm\detail\_features.hpp" />
     <ClInclude Include="external\glm\glm\detail\_fixes.hpp" />
@@ -524,32 +518,39 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="external\glm\glm\vec4.hpp" />
     <ClInclude Include="external\glm\glm\vector_relational.hpp" />
     <ClInclude Include="external\stb_image\stb_image.h" />
-    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.h" />
-    <ClInclude Include="source\Nova\Renderer\FrameBuffer.h" />
-    <ClInclude Include="source\Nova\Component\Light.h" />
-    <ClInclude Include="source\Nova\Graphic\Mesh.h" />
-    <ClInclude Include="source\Nova\Graphic\Model.h" />
     <ClInclude Include="source\Nova.h" />
+    <ClInclude Include="source\Nova\Component\Camera.h" />
+    <ClInclude Include="source\Nova\Component\Light.h" />
+    <ClInclude Include="source\Nova\Component\MeshRenderer.h" />
+    <ClInclude Include="source\Nova\Component\TestComponent.h" />
     <ClInclude Include="source\Nova\Component\Transform.h" />
     <ClInclude Include="source\Nova\Core\Application.h" />
     <ClInclude Include="source\Nova\Core\Base.h" />
+    <ClInclude Include="source\Nova\Core\Component.h" />
     <ClInclude Include="source\Nova\Core\EntryPoint.h" />
+    <ClInclude Include="source\Nova\Core\GameObject.h" />
     <ClInclude Include="source\Nova\Core\Input.h" />
     <ClInclude Include="source\Nova\Core\KeyCode.h" />
     <ClInclude Include="source\Nova\Core\Layer.h" />
     <ClInclude Include="source\Nova\Core\LayerQueue.h" />
     <ClInclude Include="source\Nova\Core\Log.h" />
     <ClInclude Include="source\Nova\Core\MouseButtonCode.h" />
+    <ClInclude Include="source\Nova\Core\ResourceManager.h" />
+    <ClInclude Include="source\Nova\Core\Scene.h" />
     <ClInclude Include="source\Nova\Core\Timestep.h" />
     <ClInclude Include="source\Nova\Core\Window.h" />
     <ClInclude Include="source\Nova\Event\Event.h" />
     <ClInclude Include="source\Nova\Event\KeyEvent.h" />
     <ClInclude Include="source\Nova\Event\MouseEvent.h" />
     <ClInclude Include="source\Nova\Event\WindowEvent.h" />
+    <ClInclude Include="source\Nova\Graphic\Mesh.h" />
+    <ClInclude Include="source\Nova\Graphic\Model.h" />
     <ClInclude Include="source\Nova\Graphic\Vertex.h" />
     <ClInclude Include="source\Nova\Imgui\ImguiLayer.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLBuffer.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLContext.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLCubeMap.h" />
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLRendererAPI.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLShader.h" />
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLTexture.h" />
@@ -557,8 +558,8 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\Nova\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="source\Nova\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="source\Nova\Renderer\Buffer.h" />
-    <ClInclude Include="source\Nova\Renderer\Camera.h" />
-    <ClInclude Include="source\Nova\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="source\Nova\Renderer\CubeMap.h" />
+    <ClInclude Include="source\Nova\Renderer\FrameBuffer.h" />
     <ClInclude Include="source\Nova\Renderer\RenderCommand.h" />
     <ClInclude Include="source\Nova\Renderer\Renderer.h" />
     <ClInclude Include="source\Nova\Renderer\RendererAPI.h" />
@@ -569,25 +570,26 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClInclude Include="source\NovaPch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Nova\Core\GameObject.cpp" />
-    <ClCompile Include="source\Nova\Core\Scene.cpp" />
-    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLCubeMap.cpp" />
-    <ClCompile Include="source\Nova\Renderer\CubeMap.cpp" />
     <ClCompile Include="external\stb_image\stb_image.cpp" />
-    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.cpp" />
-    <ClCompile Include="source\Nova\Renderer\FrameBuffer.cpp" />
-    <ClCompile Include="source\Nova\Graphic\Mesh.cpp" />
-    <ClCompile Include="source\Nova\Graphic\Model.cpp" />
+    <ClCompile Include="source\Nova\Component\Camera.cpp" />
+    <ClCompile Include="source\Nova\Component\MeshRenderer.cpp" />
     <ClCompile Include="source\Nova\Component\Transform.cpp" />
     <ClCompile Include="source\Nova\Core\Application.cpp" />
+    <ClCompile Include="source\Nova\Core\GameObject.cpp" />
     <ClCompile Include="source\Nova\Core\Layer.cpp" />
     <ClCompile Include="source\Nova\Core\LayerQueue.cpp" />
     <ClCompile Include="source\Nova\Core\Log.cpp" />
+    <ClCompile Include="source\Nova\Core\ResourceManager.cpp" />
+    <ClCompile Include="source\Nova\Core\Scene.cpp" />
     <ClCompile Include="source\Nova\Core\Window.cpp" />
+    <ClCompile Include="source\Nova\Graphic\Mesh.cpp" />
+    <ClCompile Include="source\Nova\Graphic\Model.cpp" />
     <ClCompile Include="source\Nova\Imgui\ImGuiBuild.cpp" />
     <ClCompile Include="source\Nova\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLBuffer.cpp" />
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLContext.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLCubeMap.cpp" />
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.cpp" />
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLRendererAPI.cpp" />
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLShader.cpp" />
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLTexture.cpp" />
@@ -595,8 +597,8 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     <ClCompile Include="source\Nova\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="source\Nova\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="source\Nova\Renderer\Buffer.cpp" />
-    <ClCompile Include="source\Nova\Renderer\Camera.cpp" />
-    <ClCompile Include="source\Nova\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="source\Nova\Renderer\CubeMap.cpp" />
+    <ClCompile Include="source\Nova\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="source\Nova\Renderer\RenderCommand.cpp" />
     <ClCompile Include="source\Nova\Renderer\Renderer.cpp" />
     <ClCompile Include="source\Nova\Renderer\RendererAPI.cpp" />
@@ -611,6 +613,9 @@ IF EXIST ..\bin\Release-windows-x86_64\Nova\Nova.lib\ (xcopy /Q /E /Y /I ..\bin\
     </ProjectReference>
     <ProjectReference Include="external\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="external\jsoncpp\jsoncpp.vcxproj">
+      <Project>{42ABB4F7-AE8A-3393-B7A2-BE6923019AF4}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,8 +1,18 @@
 #include <NovaPch.h>
 #include <Nova/Component/Transform.h>
 
+
+
 namespace Nova
 {
+	void Transform::OnImGui()
+	{
+        ImGui::Text("Transform");
+		ImGui::DragFloat3("Position", glm::value_ptr(position), 0.01f);
+        ImGui::DragFloat3("EulerAngle", glm::value_ptr(eulerAngle), 0.1f);
+        ImGui::DragFloat3("Scale", glm::value_ptr(scale), 0.01f);
+	}
+
 	Transform::Transform():position(glm::vec3(0,0,0)),eulerAngle(glm::vec3(0,0,0))
 		,scale(glm::vec3(1,1,1))
 	{
@@ -10,6 +20,7 @@ namespace Nova
 	Transform::~Transform()
 	{
 	}
+
 	void Transform::SetPosition(const glm::vec3& position)
 	{
         this->position = position;
@@ -23,6 +34,7 @@ namespace Nova
 	{
         this->scale = scale;
 	}
+
 	glm::vec3 Transform::GetPosition() const
 	{
 		return position;
@@ -64,7 +76,6 @@ namespace Nova
 		forward.z = cos(glm::radians(eulerAngle.y)) * cos(glm::radians(eulerAngle.x));
 		return glm::normalize(forward);
 	}
-
 	glm::vec3 Transform::GetRight() const
 	{
 		glm::vec3 right;
@@ -73,10 +84,40 @@ namespace Nova
 		right.z = sin(glm::radians(eulerAngle.y));
 		return glm::normalize(right);
 	}
-
 	glm::vec3 Transform::GetUp() const
 	{
 		return glm::normalize(glm::cross( GetForward(), GetRight()));
+	}
+
+	Json::Value Transform::ToJson()
+	{
+		Json::Value root;
+		root["position"]["x"] = position.x;
+		root["position"]["y"] = position.y;
+		root["position"]["z"] = position.z;
+
+		root["eulerAngle"]["x"] = eulerAngle.x;
+		root["eulerAngle"]["y"] = eulerAngle.y;
+		root["eulerAngle"]["z"] = eulerAngle.z;
+
+		root["scale"]["x"] = scale.x;
+		root["scale"]["y"] = scale.y;
+		root["scale"]["z"] = scale.z;
+        return root;
+	}
+	void Transform::FromJson(const Json::Value& json)
+	{
+        position.x = json["position"]["x"].asFloat();
+        position.y = json["position"]["y"].asFloat();
+        position.z = json["position"]["z"].asFloat();
+
+        eulerAngle.x = json["eulerAngle"]["x"].asFloat();
+        eulerAngle.y = json["eulerAngle"]["y"].asFloat();
+        eulerAngle.z = json["eulerAngle"]["z"].asFloat();
+
+		scale.x = json["scale"]["x"].asFloat();
+        scale.y = json["scale"]["y"].asFloat();
+        scale.z = json["scale"]["z"].asFloat();
 	}
 
 } 

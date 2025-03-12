@@ -29,6 +29,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 include "Nova/external/imgui"
 include "Nova/external/Glad"
+include "Nova/external/jsoncpp"
 
 
 --创建工程
@@ -65,9 +66,8 @@ project "Nova"
         "%{prj.name}/external/imgui",
         "%{prj.name}/external/stb_image",
         "%{prj.name}/external/glm",
-        "%{prj.name}/external/assimp/include",
-        
-        
+        "%{prj.name}/external/assimp/include",  
+        "%{prj.name}/external/jsoncpp/include",
     }
     --链接库存放位置
     libdirs
@@ -75,7 +75,6 @@ project "Nova"
         --glfw库文件位置
         "%{prj.name}/external/glfw-3.4/lib",
         "%{prj.name}/external/assimp/lib",
-        
     }
     --链接库
     links
@@ -85,6 +84,7 @@ project "Nova"
         "Glad",
         "ImGui",
         "assimp-vc143-mtd",
+        "jsoncpp",
     }
     
     --project下的大部分配置都是全局的
@@ -162,12 +162,14 @@ project "NovaEditor"
             "Nova/external/glm",
             "Nova/external/Glad/include",
             "Nova/external/assimp/include",
-            "Nova/external/stb_image",
+            "Nova/external/stb_image",  
+            "Nova/external/jsoncpp/include",  
+  
         }
         
         libdirs
         {
-            "Nova/external/glfw-3.4/lib"
+            "Nova/external/glfw-3.4/lib", 
         }
    filter "action:vs*"
         buildoptions { 
@@ -178,6 +180,7 @@ project "NovaEditor"
         links
         {
             "Nova",
+            "jsoncpp",
         }
         
         filter "system:windows"

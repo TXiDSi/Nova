@@ -24,6 +24,8 @@
 #include "Nova/Component/TestComponent.h"
 #include "Nova/Component/Transform.h"
 #include "Nova/Component/Light.h"
+#include "Nova/Component/MeshRenderer.h"
+#include "Nova/Component/Camera.h"
 
 //Graphic
 #include"Nova/Graphic/Mesh.h"
@@ -40,9 +42,6 @@
 #include "Nova/Renderer/VertexArray.h"
 #include "Nova/Renderer/FrameBuffer.h"
 #include "Nova/Renderer/CubeMap.h"
-
-#include "Nova/Renderer/Camera.h"
-#include "Nova/Renderer/OrthographicCamera.h"
 
 //EntryPoint 
 #include "Nova/Core/EntryPoint.h"

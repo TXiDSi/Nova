@@ -40,6 +40,9 @@
     <Filter Include="source\Nova\Event">
       <UniqueIdentifier>{4ACE4B7B-B6E4-4911-FF5B-D5326BB11A99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Nova\Graphic">
+      <UniqueIdentifier>{66F1D00D-D252-AE1B-5BC0-F4CDC720E5DA}</UniqueIdentifier>
+    </Filter>
     <Filter Include="source\Nova\Imgui">
       <UniqueIdentifier>{434A8F7B-AF60-8D11-F8D7-1833642D5E99}</UniqueIdentifier>
     </Filter>
@@ -1287,6 +1290,18 @@
     <ClInclude Include="source\Nova.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Component\Camera.h">
+      <Filter>source\Nova\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Component\Light.h">
+      <Filter>source\Nova\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Component\MeshRenderer.h">
+      <Filter>source\Nova\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Component\TestComponent.h">
+      <Filter>source\Nova\Component</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Component\Transform.h">
       <Filter>source\Nova\Component</Filter>
     </ClInclude>
@@ -1296,7 +1311,13 @@
     <ClInclude Include="source\Nova\Core\Base.h">
       <Filter>source\Nova\Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Core\Component.h">
+      <Filter>source\Nova\Core</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Core\EntryPoint.h">
+      <Filter>source\Nova\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Core\GameObject.h">
       <Filter>source\Nova\Core</Filter>
     </ClInclude>
     <ClInclude Include="source\Nova\Core\Input.h">
@@ -1317,6 +1338,9 @@
     <ClInclude Include="source\Nova\Core\MouseButtonCode.h">
       <Filter>source\Nova\Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Core\Scene.h">
+      <Filter>source\Nova\Core</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Core\Timestep.h">
       <Filter>source\Nova\Core</Filter>
     </ClInclude>
@@ -1335,6 +1359,15 @@
     <ClInclude Include="source\Nova\Event\WindowEvent.h">
       <Filter>source\Nova\Event</Filter>
     </ClInclude>
+    <ClInclude Include="source\Nova\Graphic\Mesh.h">
+      <Filter>source\Nova\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Graphic\Model.h">
+      <Filter>source\Nova\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Graphic\Vertex.h">
+      <Filter>source\Nova\Graphic</Filter>
+    </ClInclude>
     <ClInclude Include="source\Nova\Imgui\ImguiLayer.h">
       <Filter>source\Nova\Imgui</Filter>
     </ClInclude>
@@ -1342,6 +1375,12 @@
       <Filter>source\Nova\Platform\Opengl</Filter>
     </ClInclude>
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLContext.h">
+      <Filter>source\Nova\Platform\Opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLCubeMap.h">
+      <Filter>source\Nova\Platform\Opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.h">
       <Filter>source\Nova\Platform\Opengl</Filter>
     </ClInclude>
     <ClInclude Include="source\Nova\Platform\Opengl\OpenGLRendererAPI.h">
@@ -1365,10 +1404,10 @@
     <ClInclude Include="source\Nova\Renderer\Buffer.h">
       <Filter>source\Nova\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="source\Nova\Renderer\Camera.h">
+    <ClInclude Include="source\Nova\Renderer\CubeMap.h">
       <Filter>source\Nova\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="source\Nova\Renderer\OrthographicCamera.h">
+    <ClInclude Include="source\Nova\Renderer\FrameBuffer.h">
       <Filter>source\Nova\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="source\Nova\Renderer\RenderCommand.h">
@@ -1395,27 +1434,25 @@
     <ClInclude Include="source\NovaPch.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="source\Nova\Graphic\Model.h" />
-    <ClInclude Include="source\Nova\Graphic\Mesh.h" />
-    <ClInclude Include="source\Nova\Graphic\Vertex.h" />
-    <ClInclude Include="source\Nova\Component\Light.h" />
-    <ClInclude Include="source\Nova\Renderer\FrameBuffer.h" />
-    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.h" />
-    <ClInclude Include="source\Nova\Renderer\CubeMap.h" />
-    <ClInclude Include="source\Nova\Platform\Opengl\OpenGLCubeMap.h" />
-    <ClInclude Include="source\Nova\Core\Component.h" />
-    <ClInclude Include="source\Nova\Core\GameObject.h" />
-    <ClInclude Include="source\Nova\Core\Scene.h" />
-    <ClInclude Include="source\Nova\Component\TestComponent.h" />
+    <ClInclude Include="source\Nova\Core\ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external\stb_image\stb_image.cpp">
       <Filter>external\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="source\Nova\Component\Camera.cpp">
+      <Filter>source\Nova\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Component\MeshRenderer.cpp">
+      <Filter>source\Nova\Component</Filter>
+    </ClCompile>
     <ClCompile Include="source\Nova\Component\Transform.cpp">
       <Filter>source\Nova\Component</Filter>
     </ClCompile>
     <ClCompile Include="source\Nova\Core\Application.cpp">
+      <Filter>source\Nova\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Core\GameObject.cpp">
       <Filter>source\Nova\Core</Filter>
     </ClCompile>
     <ClCompile Include="source\Nova\Core\Layer.cpp">
@@ -1427,8 +1464,17 @@
     <ClCompile Include="source\Nova\Core\Log.cpp">
       <Filter>source\Nova\Core</Filter>
     </ClCompile>
+    <ClCompile Include="source\Nova\Core\Scene.cpp">
+      <Filter>source\Nova\Core</Filter>
+    </ClCompile>
     <ClCompile Include="source\Nova\Core\Window.cpp">
       <Filter>source\Nova\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Graphic\Mesh.cpp">
+      <Filter>source\Nova\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Graphic\Model.cpp">
+      <Filter>source\Nova\Graphic</Filter>
     </ClCompile>
     <ClCompile Include="source\Nova\Imgui\ImGuiBuild.cpp">
       <Filter>source\Nova\Imgui</Filter>
@@ -1440,6 +1486,12 @@
       <Filter>source\Nova\Platform\Opengl</Filter>
     </ClCompile>
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLContext.cpp">
+      <Filter>source\Nova\Platform\Opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLCubeMap.cpp">
+      <Filter>source\Nova\Platform\Opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.cpp">
       <Filter>source\Nova\Platform\Opengl</Filter>
     </ClCompile>
     <ClCompile Include="source\Nova\Platform\Opengl\OpenGLRendererAPI.cpp">
@@ -1463,10 +1515,10 @@
     <ClCompile Include="source\Nova\Renderer\Buffer.cpp">
       <Filter>source\Nova\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="source\Nova\Renderer\Camera.cpp">
+    <ClCompile Include="source\Nova\Renderer\CubeMap.cpp">
       <Filter>source\Nova\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="source\Nova\Renderer\OrthographicCamera.cpp">
+    <ClCompile Include="source\Nova\Renderer\FrameBuffer.cpp">
       <Filter>source\Nova\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="source\Nova\Renderer\RenderCommand.cpp">
@@ -1490,13 +1542,6 @@
     <ClCompile Include="source\NovaPch.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\Nova\Graphic\Model.cpp" />
-    <ClCompile Include="source\Nova\Graphic\Mesh.cpp" />
-    <ClCompile Include="source\Nova\Renderer\FrameBuffer.cpp" />
-    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLFrameBuffer.cpp" />
-    <ClCompile Include="source\Nova\Renderer\CubeMap.cpp" />
-    <ClCompile Include="source\Nova\Platform\Opengl\OpenGLCubeMap.cpp" />
-    <ClCompile Include="source\Nova\Core\GameObject.cpp" />
-    <ClCompile Include="source\Nova\Core\Scene.cpp" />
+    <ClCompile Include="source\Nova\Core\ResourceManager.cpp" />
   </ItemGroup>
 </Project>

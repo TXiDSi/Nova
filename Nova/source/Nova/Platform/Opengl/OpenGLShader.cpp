@@ -72,7 +72,7 @@ namespace Nova {
 			glDeleteProgram(program);
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
-            NOVA_CORE_ASSERT(false, "Shader link failure!");
+            NOVA_CORE_ERROR("Shader link failure!");
 			return;
 		}
 

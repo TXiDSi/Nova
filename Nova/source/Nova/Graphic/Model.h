@@ -9,12 +9,12 @@ namespace Nova
     {
     public:
         Model(const std::string& path);
-        std::vector<Mesh> meshes;
+        std::vector<std::shared_ptr<Mesh>> meshes;
     private:   
         std::string directory;
         void loadModel(const std::string& path);     
         void processNode(aiNode* node, const aiScene* scene);
-        Mesh processMesh(aiMesh* mesh, const aiScene* scene);   
+        std::shared_ptr<Mesh> processMesh(aiMesh* mesh, const aiScene* scene);   
     };
 }
 

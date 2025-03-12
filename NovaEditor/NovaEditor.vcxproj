@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Nova\external\spdlog\include;..\Nova\source;..\Nova\external\imgui;..\Nova\external\glm;..\Nova\external\Glad\include;..\Nova\external\assimp\include;..\Nova\external\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;..\Nova\external\spdlog\include;..\Nova\source;..\Nova\external\imgui;..\Nova\external\glm;..\Nova\external\Glad\include;..\Nova\external\assimp\include;..\Nova\external\stb_image;..\Nova\external\jsoncpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -78,7 +78,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>IS_NOVA_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Nova\external\spdlog\include;..\Nova\source;..\Nova\external\imgui;..\Nova\external\glm;..\Nova\external\Glad\include;..\Nova\external\assimp\include;..\Nova\external\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;..\Nova\external\spdlog\include;..\Nova\source;..\Nova\external\imgui;..\Nova\external\glm;..\Nova\external\Glad\include;..\Nova\external\assimp\include;..\Nova\external\stb_image;..\Nova\external\jsoncpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -97,16 +97,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\Core\AssetsManager.cpp" />
+    <ClInclude Include="source\Core\NovaAssetsManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Core\NovaAssetsManager.cpp" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nova\Nova.vcxproj">
       <Project>{D9BC897C-C5F3-8A0D-6EE0-70105AF6060F}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="source\Core\AssetsManager.h" />
+    <ProjectReference Include="..\Nova\external\jsoncpp\jsoncpp.vcxproj">
+      <Project>{42ABB4F7-AE8A-3393-B7A2-BE6923019AF4}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
