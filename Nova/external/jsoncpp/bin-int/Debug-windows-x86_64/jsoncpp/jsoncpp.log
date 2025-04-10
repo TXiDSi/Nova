@@ -1,3 +1,1 @@
-﻿cl : 命令行  warning D9025: 正在重写“/MT”(用“/MTd”)
-  jsoncpp.cpp
-  jsoncpp.vcxproj -> E:\Nova\Nova\external\jsoncpp\bin\Debug-windows-x86_64\jsoncpp\jsoncpp.lib
+﻿  jsoncpp.vcxproj -> G:\Nova\Nova\external\jsoncpp\bin\Debug-windows-x86_64\jsoncpp\jsoncpp.lib

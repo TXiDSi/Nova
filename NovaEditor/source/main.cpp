@@ -65,11 +65,16 @@ namespace Nova
 
         virtual void OnImGuiRender() override
         {
+            static bool showDockSpace = true;
+            ShowDockSpace(&showDockSpace);
+
             ShowViewPortWindow();
             HierarchyWindow();
             InspectorWinodw();
             SceneWindow();
             SaveSceneWindow();
+
+            
         }
 
         void OnEvent(Nova::Event& event) override
@@ -176,12 +181,12 @@ namespace Nova
         std::shared_ptr<CubeMap> skyBoxTexture;
         std::vector<std::string> faces
         {
-            "E:/Nova/Assets/Textures/CubeMap/skybox/right.jpg",
-            "E:/Nova/Assets/Textures/CubeMap/skybox/left.jpg",
-            "E:/Nova/Assets/Textures/CubeMap/skybox/top.jpg",
-            "E:/Nova/Assets/Textures/CubeMap/skybox/bottom.jpg",
-            "E:/Nova/Assets/Textures/CubeMap/skybox/front.jpg",
-            "E:/Nova/Assets/Textures/CubeMap/skybox/back.jpg"
+            "G:/Nova/Assets/Textures/CubeMap/skybox/right.jpg",
+            "G:/Nova/Assets/Textures/CubeMap/skybox/left.jpg",
+            "G:/Nova/Assets/Textures/CubeMap/skybox/top.jpg",
+            "G:/Nova/Assets/Textures/CubeMap/skybox/bottom.jpg",
+            "G:/Nova/Assets/Textures/CubeMap/skybox/front.jpg",
+            "G:/Nova/Assets/Textures/CubeMap/skybox/back.jpg"
         };
         //---------≤‚ ‘ÃÏø’∫–--------
 
@@ -193,7 +198,7 @@ namespace Nova
             light->color = glm::vec3(1.0f, 1.0f, 1.0f);
             light->direction = glm::vec3(0.0f, -1.0f, 0.0f);
 
-            testModel = std::make_shared<Model>("E:/Nova/Assets/Models/Stanford/bunny_10k.obj");
+            testModel = std::make_shared<Model>("G:/Nova/Assets/Models/Stanford/bunny_10k.obj");
 
             std::string vertexSrc = NovaAssetsManager::GetVertexShaderSource("Shaders/Nova_Standard.glsl");
             std::string fragmentSrc = NovaAssetsManager::GetFragmentShaderSource("Shaders/Nova_Standard.glsl");
@@ -234,40 +239,56 @@ namespace Nova
             glDrawArrays(GL_TRIANGLES, 0, 36);
             glDepthFunc(GL_LESS);
         }
+
+
+
+        //-----------------ImGui---------------------------------------------------------------------
+        static bool showScene;
+        static bool showInspector;
+        static bool showHierarchy;
+
         void SceneWindow()
         {
-            ImGui::Begin("Scene");
-            ImVec2 size = ImGui::GetWindowSize();
-            frameBuffer->SetTextureSize(size.x, size.y);
-            ImGui::Image((void*)(intptr_t)frameBuffer->GetTextureID(), size, ImVec2(0, 1), ImVec2(1, 0));
-            ImGui::End();
+            if (showScene)
+            {
+                ImGui::Begin("Scene", &showScene);
+                ImVec2 size = ImGui::GetWindowSize();
+                frameBuffer->SetTextureSize(size.x, size.y);
+                ImGui::Image((void*)(intptr_t)frameBuffer->GetTextureID(), size, ImVec2(0, 1), ImVec2(1, 0));
+                ImGui::End();
+            } 
         }
 
         std::shared_ptr<GameObject> selectedGameObject;
         void InspectorWinodw()
         {
-            ImGui::Begin("Inspector");
-            if (selectedGameObject)
-                selectedGameObject->OnImGui();
-            ImGui::End();
+            if (showInspector)
+            {
+                ImGui::Begin("Inspector", &showInspector);
+                if (selectedGameObject)
+                    selectedGameObject->OnImGui();
+                ImGui::End();
+            }
         }
         void HierarchyWindow()
         {
-            ImGui::Begin("Hierarchy");
-
-            for (auto [key,gameObject] : scene->GetGameObjects())
+            if (showHierarchy)
             {
-                ImGui::PushID(gameObject->id);
-                bool isSelected = (selectedGameObject == gameObject);
-                if (ImGui::Selectable(gameObject->name.c_str(), isSelected))
+                ImGui::Begin("Hierarchy", &showHierarchy);
+
+                for (auto [key, gameObject] : scene->GetGameObjects())
                 {
-                    selectedGameObject = gameObject;
+                    ImGui::PushID(gameObject->id);
+                    bool isSelected = (selectedGameObject == gameObject);
+                    if (ImGui::Selectable(gameObject->name.c_str(), isSelected))
+                    {
+                        selectedGameObject = gameObject;
+                    }
+                    ImGui::PopID();
                 }
-                ImGui::PopID();
+
+                ImGui::End();
             }
-
-            ImGui::End();
-
         }
         void SaveSceneWindow()
         {
@@ -292,7 +313,98 @@ namespace Nova
             }
             ImGui::End();
         }
-        //------------------------------------------
+
+        void WindowsMenu()
+        {
+            if (ImGui::BeginMenu("Windows"))
+            {
+                if (ImGui::MenuItem("SceneWindow", NULL, false))
+                    showScene = !showScene;
+
+                if (ImGui::MenuItem("InspectorWindow", NULL, false))
+                    showInspector = !showInspector;
+
+                if (ImGui::MenuItem("HierarchyWindow", NULL, false))
+                    showHierarchy = !showHierarchy;
+
+                ImGui::EndMenu();
+            }   
+        }
+
+        void ObjectMenu()
+        {
+            if (ImGui::BeginMenu("Object"))
+            {
+                if (ImGui::MenuItem("Create GameObject", NULL, false))
+                {
+                    scene->CreateGameObject();
+                }
+                ImGui::EndMenu();
+            }
+        }
+
+        void ComponentMenu()
+        {
+            if (ImGui::BeginMenu("Component"))
+            {
+                bool selectAble = selectedGameObject != nullptr;
+
+                if (ImGui::MenuItem("Add MeshRenderer", NULL, false, selectAble))
+                {
+                    selectedGameObject->AddComponent<MeshRenderer>();
+                }
+                if (ImGui::MenuItem("Add Camera", NULL, false, selectAble))
+                {
+                    selectedGameObject->AddComponent<Camera>();
+                    scene->mainCamera = selectedGameObject->GetComponent<Camera>();
+                    selectedGameObject->name = "mainCamera";
+                }
+                ImGui::EndMenu();
+            }
+        }
+
+        void ShowDockSpace(bool* p_open)
+        {
+            static bool opt_fullscreen_persistant = true;
+            static ImGuiDockNodeFlags opt_flags = ImGuiDockNodeFlags_None;
+            bool opt_fullscreen = opt_fullscreen_persistant;
+            // We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
+            // because it would be confusing to have two docking targets within each others.
+            ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+            if (opt_fullscreen)
+            {
+                ImGuiViewport* viewport = ImGui::GetMainViewport();
+                ImGui::SetNextWindowPos(viewport->Pos);
+                ImGui::SetNextWindowSize(viewport->Size);
+                ImGui::SetNextWindowViewport(viewport->ID);
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+                window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+                window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+            }
+            // When using ImGuiDockNodeFlags_PassthruDockspace, DockSpace() will render our background and handle the pass-thru hole, so we ask Begin() to not render a background.
+            if (opt_flags & ImGuiDockNodeFlags_PassthruDockspace)
+                window_flags |= ImGuiWindowFlags_NoBackground;
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+            ImGui::Begin("DockSpace Demo", p_open, window_flags);
+            ImGui::PopStyleVar();
+            if (opt_fullscreen)
+                ImGui::PopStyleVar(2);
+            ImGuiID dockspace_id = ImGui::GetID("MyDockspace");
+            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), opt_flags);
+
+            ImGui::BeginMenuBar();
+            
+            WindowsMenu();
+            ObjectMenu();
+            ComponentMenu();
+            
+            ImGui::EndMenuBar();
+
+            ImGui::End();
+        }
+
+        //---------------------------------------------------------------------------------------------
 
         //---------≤‚ ‘Scene----------
         std::shared_ptr<Scene> scene;
@@ -301,16 +413,16 @@ namespace Nova
         {
             scene = std::make_shared<Scene>();
             scene->light = light;
-            //auto cameraGO = scene->CreateGameObject();
-            //mainCamera = cameraGO->AddComponent<Camera>();
-            //cameraGO->name = "mainCamera";
-            //scene->mainCamera = mainCamera;
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    auto gameObject = scene->CreateGameObject();
-            //    auto renderer = gameObject->AddComponent<MeshRenderer>();
-            //    renderer->SetShader(shader);
-            //}
+            /*auto cameraGO = scene->CreateGameObject();
+            mainCamera = cameraGO->AddComponent<Camera>();
+            cameraGO->name = "mainCamera";
+            scene->mainCamera = mainCamera;
+            for (int i = 0; i < 5; i++)
+            {
+                auto gameObject = scene->CreateGameObject();
+                auto renderer = gameObject->AddComponent<MeshRenderer>();
+                renderer->SetShader(shader);
+            }*/
         }
         void SceneUpdate()
         {
@@ -338,6 +450,15 @@ namespace Nova
     {
         return new NovaEditor();
     }
+
+
+
+
+
+    bool EditorLayer::showScene = false;
+    bool EditorLayer::showInspector = false;
+    bool EditorLayer::showHierarchy = false;
+
 }
 
 

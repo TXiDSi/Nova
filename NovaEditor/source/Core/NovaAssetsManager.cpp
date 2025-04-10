@@ -11,7 +11,7 @@ using namespace Nova;
 
 namespace NovaEditor
 {
-	std::string NovaAssetsManager::AssetsPath = "E:/Nova/Assets/";
+	std::string NovaAssetsManager::AssetsPath = "G:/Nova/Assets/";
 
 
 	std::string NovaAssetsManager::GetFileSource(const std::string& path)
